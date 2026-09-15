@@ -1,0 +1,5 @@
+---
+export interface Props { variant?: 'frosted' | 'balanced'; as?: 'section' | 'div' | 'article'; class?: string; id?: string }
+const { variant = 'frosted', as: Tag = 'div', class: cls = '', id } = Astro.props;
+---
+<Tag id={id} class={`${variant === 'frosted' ? 'glass-frosted' : 'glass-balanced'} ${cls}`}><slot /></Tag>

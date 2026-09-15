@@ -1,0 +1,21 @@
+---
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<section data-vanta-hero class={`hero-sky relative isolate overflow-hidden ${cls}`} aria-labelledby="hero-title">
+  <div class="relative z-10"><slot /></div>
+</section>
+<script>
+  import '../scripts/vanta-hero';
+</script>
+<style>
+  .hero-sky {
+    min-height: 88dvh;
+    background:
+      radial-gradient(70rem 20rem at 20% 15%, rgba(255, 255, 255, 0.85), transparent 70%),
+      radial-gradient(50rem 16rem at 80% 35%, rgba(255, 255, 255, 0.7), transparent 70%),
+      linear-gradient(180deg, #9fc4ee 0%, #cfe3f8 45%, #eef5fc 100%);
+  }
+  .hero-sky[data-vanta='on'] { background: transparent; }
+  .hero-sky :global(canvas) { position: absolute; inset: 0; z-index: 0; }
+</style>

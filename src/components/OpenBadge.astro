@@ -1,0 +1,12 @@
+---
+import { shop } from '../data/shop';
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<p data-open-badge class={`inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-3 py-1.5 text-sm font-semibold text-ink-700 ${cls}`} aria-live="polite">
+  <span data-dot class="size-2.5 shrink-0 rounded-full bg-ink-500" aria-hidden="true"></span>
+  <span data-label>{shop.hoursShort}</span>
+</p>
+<script>
+  import '../scripts/open-badge';
+</script>
