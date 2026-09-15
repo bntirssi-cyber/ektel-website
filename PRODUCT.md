@@ -52,6 +52,8 @@ Not claimed: same-day repair promises, best-price claims, or the station locatio
 - Name: EKTEL Mobilfunk & Smartphones (owner: Aysun Eker).
 - **A real logo exists but was not supplied yet.** The site ships an SVG wordmark in `src/components/Logo.astro` as a placeholder; swap it for the real logo when provided.
 - Binding visual constraint volunteered by the client: a Vanta.js CLOUDS animated sky in the hero with "liquid glass" (frosted, translucent) panels on top; a light, airy look.
+- Binding reference named by the client: **Apple design language** (Liquid Glass materials, restraint, generous whitespace, product-like presentation). No "apple-design" skill is installed; it is applied through the liquid-glass-ui skill and Apple HIG principles.
+- Formal "Sie" address and a sober tone are untouchable. A technical/gaming look (neon, dark panels, jargon) is explicitly wrong for this brand.
 
 ## Evidence on Hand
 
