@@ -1,0 +1,62 @@
+---
+/** Scroll-gescrubbte Explosionsansicht des Smartphones – „Bildschirm im Schaufenster“. */
+const steps = [
+  { title: 'Display', text: 'Gesprungenes Glas, Streifen oder kein Bild – wir tauschen Display und Touch.' },
+  { title: 'Akku & Ladebuchse', text: 'Schnell leer oder lädt nicht mehr – Akku und Buchse ersetzen wir vor Ort.' },
+  { title: 'Hauptplatine', text: 'Wasserschaden, Softwarefehler, Datenrettung – wir schauen bis auf die Platine.' },
+] as const;
+const FRAMES = 80;
+---
+<section data-scroll-phone data-frames={FRAMES} class="scroll-phone relative" aria-labelledby="teardown-title">
+  <div class="sticky top-0 flex min-h-dvh items-center">
+    <div class="mx-auto grid w-full max-w-6xl items-center gap-5 px-4 py-6 md:grid-cols-12 md:gap-10 md:py-20">
+      <figure class="screen glass-frame relative overflow-hidden md:col-span-7">
+        <canvas data-canvas class="block aspect-video w-full" aria-label="Smartphone in Einzelteilen: Display, Akku und Platine liegen übereinander" role="img"></canvas>
+        <img data-poster src="/phone/poster.webp" width="1280" height="720" alt="" class="absolute inset-0 h-full w-full object-cover" decoding="async" loading="lazy" />
+        <figcaption class="sr-only">Beim Scrollen öffnet sich das Smartphone in seine Bauteile.</figcaption>
+      </figure>
+      <div class="md:col-span-5">
+        <h2 id="teardown-title" class="text-2xl font-bold md:text-4xl">Wir kennen Ihr Smartphone von innen.</h2>
+        <ol class="mt-6 divide-y divide-sky-200 border-y border-sky-200">
+          {steps.map((s, i) => (
+            <li data-step={i} class="step py-3 transition-colors duration-150 md:py-4">
+              <p class="step-title text-xl font-bold">{s.title}</p>
+              <p class="step-text mt-1 text-ink-700">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <a href="/leistungen#reparatur" class="btn-ghost mt-5 md:mt-6">Mehr zur Reparatur</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import '../scripts/scroll-phone';
+</script>
+<style>
+  .scroll-phone { min-height: 300vh; }
+  .screen {
+    background: linear-gradient(180deg, #4a4d56 0%, #53535c 100%);
+    border-radius: var(--radius-panel);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), var(--lq-shadow);
+  }
+  .screen[data-ready] img[data-poster] { opacity: 0; }
+  .step { color: var(--text-muted); }
+  .step .step-title { color: inherit; }
+  .step .step-text { color: inherit; }
+  /* Auf kleinen Viewports passt nur der aktive Schritt neben das Bild in 100dvh */
+  @media (max-width: 767px) {
+    .step:not([data-active]) { display: none; }
+    .step { border-top: 0; }
+  }
+  .step[data-active] { color: var(--text-primary); }
+  .step[data-active] .step-text { color: var(--text-secondary); }
+  .step[data-active] .step-title { color: var(--accent-strong); }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-phone { min-height: 0; }
+    .scroll-phone > div { position: static; min-height: 0; }
+    .step, .step:not([data-active]) { display: block; color: var(--text-primary); }
+    .step .step-text { color: var(--text-secondary); }
+  }
+</style>

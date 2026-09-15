@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import VantaHero from '../components/VantaHero.astro';
 import GlassPanel from '../components/GlassPanel.astro';
 import OpenBadge from '../components/OpenBadge.astro';
+import ScrollPhone from '../components/ScrollPhone.astro';
 import { shop } from '../data/shop';
 
 const title = 'EKTEL Mobilfunk & Smartphones – Reparatur, Verkauf, Ankauf im Bahnhof Altona';
@@ -28,4 +29,7 @@ const description = `Smartphone-Reparatur, Verkauf, Ankauf und SIM-Karten direkt
       </GlassPanel>
     </div>
   </VantaHero>
+  <div class="sky-static">
+    <ScrollPhone />
+  </div>
 </BaseLayout>
