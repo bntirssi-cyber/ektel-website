@@ -7,7 +7,7 @@
 
 **Architecture:** Astro 5 (`output: 'static'`) + Tailwind v4 (`@tailwindcss/vite`), kein UI-Framework. Alle Fakten zum Laden leben in `src/data/shop.ts`. Ein einziges Client-Script lädt Vanta/three.js lazy als Island; alles andere ist HTML/CSS. Fonts, three.js und Vanta werden per npm gebündelt (keine Drittanfragen → DSGVO-sauber).
 
-**Tech Stack:** Astro ^5.13, Tailwind ^4.1, TypeScript, Vitest ^3, three@0.134.0, vanta@0.5.24, @fontsource-variable/bricolage-grotesque, @fontsource-variable/figtree, @astrojs/sitemap, @astrojs/check.
+**Tech Stack:** Astro ^7.3 (aktuell; Plan ursprünglich 5.x), Tailwind ^4.1, TypeScript, Vitest ^3, three@0.134.0, vanta@0.5.24, @fontsource-variable/bricolage-grotesque, @fontsource-variable/figtree, @astrojs/sitemap, @astrojs/check.
 
 **Spec:** Design-Zusammenfassung unten unter „Kontext & Spec" (wird in Task 0 nach `docs/superpowers/specs/2026-09-16-ektel-website-design.md` kopiert).
 
@@ -58,6 +58,7 @@
 | 5 | ui-ux-pro-max:design-system + ui-ux-pro-max:ui-styling (Tailwind-v4-`@theme`-Tokens) |
 | 6, 10 | superpowers:test-driven-development |
 | 7 | liquid-glass-ui (Glas-Rezepte), impeccable craft-floor |
+| 7b | Scroll-Telefon (Kundenwunsch): OpenCV-Frames, Canvas-Scrubbing |
 | 8 | frontend-design (Illustrationsstil), impeccable craft-floor (keine Emoji-Icons, konsistente Strichstärke) |
 | 11 | ui-ux-pro-max:banner-design (OG-Bild 1200×630) |
 | 12 | impeccable `harden`, `adapt`, `optimize` |
@@ -1011,6 +1012,56 @@ Hinweis: Text auf Glas bekommt bei Bedarf `[text-shadow:0_1px_2px_rgba(0,0,8,.25
 
 ```bash
 npm run build && git add -A && git commit -m "feat: add glass panel, lazy Vanta clouds hero and landing hero section
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
+```
+
+---
+
+### Task 7b: Scroll-gescrubbte Telefon-Explosionsansicht (Kundenwunsch 2026-09-16)
+
+**Files:**
+- Create: `scripts/extract-frames.py`, `public/phone/desktop/f0001.webp … f0080.webp`, `public/phone/mobile/…`, `public/phone/poster.webp`, `src/components/ScrollPhone.astro`, `src/scripts/scroll-phone.ts`
+- Modify: `src/pages/index.astro` (Sektion direkt unter dem Hero)
+
+**Quelle:** `header/tech header background anination.mp4` (1920×1080, 30 fps, 9,8 s; gewählt wegen höherer Bitrate). Beide Clips zeigen dieselbe Sequenz.
+
+- [ ] **Step 1: Frames extrahieren (OpenCV, 80 Frames, WebP q80)**
+
+```python
+# scripts/extract-frames.py
+import cv2, os, sys
+SRC = 'header/tech header background anination.mp4'
+N = 80
+cap = cv2.VideoCapture(SRC); total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+for name, width in (('desktop', 1280), ('mobile', 720)):
+    os.makedirs(f'public/phone/{name}', exist_ok=True)
+    for i in range(N):
+        cap.set(cv2.CAP_PROP_POS_FRAMES, round(i * (total - 1) / (N - 1)))
+        ok, fr = cap.read()
+        if not ok: sys.exit(f'frame {i} failed')
+        h = round(fr.shape[0] * width / fr.shape[1])
+        cv2.imwrite(f'public/phone/{name}/f{i+1:04d}.webp', cv2.resize(fr, (width, h), interpolation=cv2.INTER_AREA), [cv2.IMWRITE_WEBP_QUALITY, 80])
+cap.set(cv2.CAP_PROP_POS_FRAMES, total - 1); ok, fr = cap.read()
+cv2.imwrite('public/phone/poster.webp', cv2.resize(fr, (1280, 720), interpolation=cv2.INTER_AREA), [cv2.IMWRITE_WEBP_QUALITY, 82])
+print('done')
+```
+
+```bash
+python scripts/extract-frames.py && du -sh public/phone/desktop public/phone/mobile
+```
+Erwartet: 80 + 80 Dateien, Desktop-Set ≤ 4 MB.
+
+- [ ] **Step 2: ScrollPhone.astro** — `<section>` mit `min-height: 300vh`; innen `position: sticky; top: 0; height: 100dvh` Container mit dunklem, glasgerahmtem Panel (`rounded-[var(--radius-panel)]`, `bg-[#2b2a2c]`, 1 px Lichtkante), `<canvas>` (aspect 16/9) + `<img src="/phone/poster.webp">` als noscript/reduced-motion-Fallback; daneben drei Textstufen (`data-step="0|1|2"`): „Display", „Akku & Ladebuchse", „Hauptplatine", jede mit einem Satz und Link `/leistungen#reparatur`. `aria-label="Smartphone in Einzelteilen"` am Canvas.
+
+- [ ] **Step 3: scroll-phone.ts** — bei `prefers-reduced-motion` nichts tun (Poster bleibt). Sonst: IntersectionObserver (rootMargin 50 %) lädt das passende Set (`matchMedia('(min-width: 768px)')` → desktop) als `Image[]`, zeichnet Frame 1; `scroll`-Listener (passive) berechnet progress = (scrollY − sectionTop) / (sectionHeight − viewportHeight), clamp 0–1, Zielframe = round(progress·79); `requestAnimationFrame`-Loop lerpt den aktuellen Frame zum Ziel (Faktor 0.18) und zeichnet nur bei Änderung; `devicePixelRatio` cap 2 beim Canvas-Sizing; Textstufen: `data-active` bei progress < .33 / < .66 / sonst.
+
+- [ ] **Step 4: Sichtprüfung** im Browser-Pane: Scrubben in beide Richtungen, Mobile 390, keine Layout-Sprünge (Canvas hat feste Aspect-Ratio), Konsole leer, Netzwerk: Frames laden erst bei Annäherung.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add -A && git commit -m "feat: add scroll-scrubbed phone teardown section
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>"
 ```
