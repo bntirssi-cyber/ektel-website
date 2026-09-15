@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "@fontsource-variable/funnel-display";
+@import "@fontsource-variable/funnel-sans";
+
+/* ---------------------------------------------------------------------------
+   Layer 1 · Primitive tokens (Tailwind @theme → utilities like bg-sky-50)
+   --------------------------------------------------------------------------- */
+@theme {
+  --font-display: "Funnel Display Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Funnel Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-sky-50: #F3F8FD;
+  --color-sky-100: #E3EEFA;
+  --color-sky-200: #C6DCF3;
+  --color-sky-300: #9FC4EE;
+  --color-ink-900: #0F1B2D;
+  --color-ink-700: #2A3950;
+  --color-ink-500: #55647A;
+  --color-accent-600: #0E5FB5;
+  --color-accent-700: #0A4B90;
+  --color-open-600: #1B8A5A;
+  --color-closed-600: #B4462B;
+  --color-screen-900: #2B2A2C;
+
+  --radius-panel: 1.5rem;
+  --radius-tile: 1.125rem;
+  --radius-control: 999px;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.55;
+}
+
+/* ---------------------------------------------------------------------------
+   Layer 2 · Semantic tokens (purpose aliases)
+   Layer 3 · Component tokens (glass material, controls)
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --surface-page: var(--color-sky-50);
+  --surface-line: var(--color-sky-200);
+  --text-primary: var(--color-ink-900);
+  --text-secondary: var(--color-ink-700);
+  --text-muted: var(--color-ink-500);
+  --accent: var(--color-accent-600);
+  --accent-strong: var(--color-accent-700);
+
+  /* Glass material — liquid-glass-ui recipes: "Frosted" for text panels, "Balanced" for tiles */
+  --lq-tint-frost: rgba(255, 255, 255, 0.62);
+  --lq-tint-balanced-hi: rgba(255, 255, 255, 0.28);
+  --lq-tint-balanced-lo: rgba(255, 255, 255, 0.10);
+  --lq-rim-hi: rgba(255, 255, 255, 0.55);
+  --lq-rim-lo: rgba(15, 27, 45, 0.08);
+  --lq-highlight: rgba(255, 255, 255, 0.7);
+  --lq-shadow: 0 18px 50px -24px rgba(15, 27, 45, 0.35);
+  --lq-blur-frost: 16px;
+  --lq-blur-balanced: 6px;
+
+  --control-height: 3rem;
+  --control-padding-x: 1.5rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    font-size: 100%;
+    color: var(--text-primary);
+    background: var(--surface-page);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    line-height: 1.1;
+  }
+  p { text-wrap: pretty; }
+  a { text-underline-offset: 0.2em; }
+  ::selection { background: var(--accent); color: #fff; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  * { scrollbar-color: var(--color-sky-300) transparent; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+}
+
+@layer components {
+  /* Frosted: readable text panels floating over the sky */
+  .glass-frosted {
+    background: var(--lq-tint-frost);
+    backdrop-filter: blur(var(--lq-blur-frost)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--lq-blur-frost)) saturate(140%);
+    border: 1px solid var(--lq-rim-hi);
+    box-shadow: inset 0 1px 0 var(--lq-highlight), var(--lq-shadow);
+    border-radius: var(--radius-panel);
+  }
+  /* Balanced: lighter tiles where the sky should stay visible */
+  .glass-balanced {
+    background: linear-gradient(160deg, var(--lq-tint-balanced-hi), var(--lq-tint-balanced-lo));
+    backdrop-filter: blur(var(--lq-blur-balanced)) saturate(130%);
+    -webkit-backdrop-filter: blur(var(--lq-blur-balanced)) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), var(--lq-shadow);
+    border-radius: var(--radius-tile);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-frosted { background: rgba(255, 255, 255, 0.94); }
+    .glass-balanced { background: rgba(255, 255, 255, 0.88); }
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: var(--control-height); padding: 0.75rem var(--control-padding-x);
+    border-radius: var(--radius-control);
+    background: var(--accent); color: #fff; font-weight: 600; text-decoration: none;
+    cursor: pointer; transition: background-color 150ms ease;
+  }
+  .btn-primary:hover { background: var(--accent-strong); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: var(--control-height); padding: 0.75rem var(--control-padding-x);
+    border-radius: var(--radius-control);
+    border: 1px solid var(--text-secondary); color: var(--text-primary); font-weight: 600; text-decoration: none;
+    background: rgba(255, 255, 255, 0.35); cursor: pointer; transition: background-color 150ms ease;
+  }
+  .btn-ghost:hover { background: rgba(255, 255, 255, 0.7); }
+
+  .prose-measure { max-width: 68ch; }
+
+  /* Static, softly clouded sky under the hero so frosted panels keep reading as material */
+  .sky-static {
+    background-color: var(--surface-page);
+    background-image:
+      radial-gradient(60rem 22rem at 12% 8%, rgba(255, 255, 255, 0.9), transparent 70%),
+      radial-gradient(48rem 18rem at 85% 22%, rgba(255, 255, 255, 0.85), transparent 70%),
+      radial-gradient(70rem 26rem at 50% 70%, rgba(198, 220, 243, 0.55), transparent 70%),
+      linear-gradient(180deg, #E9F2FC 0%, var(--surface-page) 40%, var(--surface-page) 100%);
+  }
+}

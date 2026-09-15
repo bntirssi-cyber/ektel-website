@@ -1,0 +1,26 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string; description: string; ogImage?: string; bodyClass?: string }
+const { title, description, ogImage, bodyClass = '' } = Astro.props;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#F3F8FD" />
+    <Seo title={title} description={description} ogImage={ogImage} />
+  </head>
+  <body class={`flex min-h-dvh flex-col ${bodyClass}`}>
+    <a href="#inhalt" class="btn-primary sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50">Zum Inhalt springen</a>
+    <Header />
+    <main id="inhalt" class="flex-1"><slot /></main>
+    <Footer />
+  </body>
+</html>

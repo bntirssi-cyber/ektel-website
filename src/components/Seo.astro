@@ -1,0 +1,39 @@
+---
+import { shop } from '../data/shop';
+
+interface Props { title: string; description: string; ogImage?: string }
+const { title, description, ogImage = '/og.jpg' } = Astro.props;
+const site = Astro.site ?? new URL('http://localhost:4321');
+const canonical = new URL(Astro.url.pathname, site);
+
+const dayOfWeek: Record<string, string> = {
+  mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday',
+};
+const openingHoursSpecification = Object.entries(shop.hours)
+  .filter(([, h]) => h)
+  .map(([d, h]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: dayOfWeek[d], opens: h!.open, closes: h!.close }));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MobilePhoneStore',
+  name: shop.name,
+  telephone: shop.phone,
+  url: site.toString(),
+  image: new URL(ogImage, site).toString(),
+  address: { '@type': 'PostalAddress', streetAddress: shop.street, postalCode: shop.zip, addressLocality: shop.city, addressCountry: 'DE' },
+  geo: { '@type': 'GeoCoordinates', latitude: shop.geo.lat, longitude: shop.geo.lng },
+  openingHoursSpecification,
+};
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={new URL(ogImage, site)} />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:site_name" content={shop.name} />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>

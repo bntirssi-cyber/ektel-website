@@ -1,0 +1,10 @@
+---
+/** Platzhalter-Wortmarke – durch das echte Logo ersetzen, sobald es vorliegt (siehe README). */
+interface Props { class?: string; title?: string }
+const { class: cls = 'h-7 w-auto', title = 'EKTEL' } = Astro.props;
+---
+<svg class={cls} viewBox="0 0 132 32" role="img" aria-label={title} xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="4" width="24" height="24" rx="7" fill="var(--accent)"></rect>
+  <path d="M7 11h10M7 16h8M7 21h10" stroke="#fff" stroke-width="2.4" stroke-linecap="round"></path>
+  <text x="32" y="24.5" font-family="Funnel Display Variable, system-ui, sans-serif" font-weight="700" font-size="22" fill="currentColor" letter-spacing="0.4">EKTEL</text>
+</svg>
