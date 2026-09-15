@@ -1,0 +1,49 @@
+---
+/**
+ * Dekorative Inline-Illustrationen (kein Foto): ein Strich (2), runde Enden,
+ * Tiefe nur durch Überlappung flacher Flächen, genau eine blaue Akzentfläche je Motiv.
+ */
+import type { IllustrationKind } from '../data/shop';
+interface Props { kind: IllustrationKind; class?: string }
+const { kind, class: cls = '' } = Astro.props;
+---
+<svg class={cls} viewBox="0 0 240 180" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <path d="M28 132c-12 0-18-10-12-19 4-6 12-7 17-4 2-12 18-16 26-8 8-9 26-6 28 6 10-1 16 9 11 17-3 5-9 8-16 8H28Z" fill="var(--color-sky-200)" stroke="none"></path>
+  {kind === 'repair' && (
+    <g>
+      <rect x="86" y="30" width="68" height="124" rx="12"></rect>
+      <rect x="94" y="44" width="52" height="86" rx="4" fill="var(--accent)" stroke="none"></rect>
+      <path d="M110 84l-14 14M120 74l6-6M106 96l-8 8" stroke="#fff"></path>
+      <path d="M168 62l30-30M198 32l10 10-8 8-10-10M168 62l-6 14 14-6"></path>
+      <circle cx="120" cy="142" r="4"></circle>
+    </g>
+  )}
+  {kind === 'accessories' && (
+    <g>
+      <rect x="52" y="40" width="60" height="110" rx="12"></rect>
+      <rect x="60" y="52" width="44" height="76" rx="4" fill="var(--accent)" stroke="none"></rect>
+      <path d="M128 150c0-30 20-30 20-60 0-14 14-14 14 0v14"></path>
+      <rect x="152" y="104" width="20" height="14" rx="3"></rect>
+      <circle cx="188" cy="60" r="12"></circle>
+      <circle cx="214" cy="60" r="12"></circle>
+      <path d="M188 72v20a8 8 0 0 0 8 8h10a8 8 0 0 0 8-8V72"></path>
+    </g>
+  )}
+  {kind === 'trade-in' && (
+    <g>
+      <rect x="40" y="46" width="56" height="100" rx="10"></rect>
+      <rect x="48" y="58" width="40" height="66" rx="3"></rect>
+      <rect x="144" y="34" width="56" height="112" rx="10"></rect>
+      <rect x="152" y="46" width="40" height="78" rx="3" fill="var(--accent)" stroke="none"></rect>
+      <path d="M104 78h30l-8-8M134 78l-8 8M136 110h-30l8-8M106 110l8 8"></path>
+    </g>
+  )}
+  {kind === 'sim' && (
+    <g>
+      <path d="M78 40h56l28 28v84a8 8 0 0 1-8 8H78a8 8 0 0 1-8-8V48a8 8 0 0 1 8-8Z"></path>
+      <rect x="86" y="96" width="60" height="44" rx="6" fill="var(--accent)" stroke="none"></rect>
+      <path d="M106 96v44M126 96v44M86 118h60" stroke="#fff"></path>
+      <path d="M176 116a20 20 0 0 1 20 20M176 100a36 36 0 0 1 36 36M176 84a52 52 0 0 1 52 52"></path>
+    </g>
+  )}
+</svg>
