@@ -1,0 +1,20 @@
+---
+import { shop } from '../data/shop';
+
+const facts = [
+  [shop.reviewCountLabel, 'Bewertet von Kundinnen und Kunden aus Altona und ganz Hamburg.'],
+  ['Sieben Tage die Woche', `Mo–Sa ${shop.hours.mon.open}–${shop.hours.mon.close} Uhr, So ${shop.hours.sun.open}–${shop.hours.sun.close} Uhr.`],
+  ['Direkt im Bahnhof', shop.locationHint],
+] as const;
+---
+<section aria-labelledby="trust-title" class="mx-auto max-w-6xl px-4 py-16">
+  <h2 id="trust-title" class="sr-only">Warum EKTEL</h2>
+  <dl class="grid gap-6 md:grid-cols-3">
+    {facts.map(([k, v]) => (
+      <div class="border-t border-sky-200 pt-4">
+        <dt class="font-display text-2xl font-bold">{k}</dt>
+        <dd class="mt-1 text-ink-700">{v}</dd>
+      </div>
+    ))}
+  </dl>
+</section>

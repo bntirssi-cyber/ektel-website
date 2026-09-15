@@ -4,6 +4,8 @@ import VantaHero from '../components/VantaHero.astro';
 import GlassPanel from '../components/GlassPanel.astro';
 import OpenBadge from '../components/OpenBadge.astro';
 import ScrollPhone from '../components/ScrollPhone.astro';
+import ServiceTile from '../components/ServiceTile.astro';
+import TrustStrip from '../components/TrustStrip.astro';
 import { shop } from '../data/shop';
 
 const title = 'EKTEL Mobilfunk & Smartphones – Reparatur, Verkauf, Ankauf im Bahnhof Altona';
@@ -31,5 +33,30 @@ const description = `Smartphone-Reparatur, Verkauf, Ankauf und SIM-Karten direkt
   </VantaHero>
   <div class="sky-static">
     <ScrollPhone />
+
+    <section aria-labelledby="services-title" class="mx-auto max-w-6xl px-4 py-16">
+      <h2 id="services-title" class="text-3xl font-bold md:text-4xl">Was wir für Sie tun</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-12">
+        <ServiceTile service={shop.services[0]} size="lg" />
+        <ServiceTile service={shop.services[1]} />
+        <ServiceTile service={shop.services[2]} />
+        <ServiceTile service={shop.services[3]} size="lg" />
+      </div>
+    </section>
+
+    <TrustStrip />
+
+    <section aria-labelledby="route-title" class="mx-auto max-w-6xl px-4 pb-8">
+      <GlassPanel as="div" variant="frosted" class="grid gap-6 p-8 md:grid-cols-2 md:p-12">
+        <div>
+          <h2 id="route-title" class="text-3xl font-bold">So finden Sie uns</h2>
+          <p class="mt-3 text-ink-700">{shop.street}, {shop.zip} {shop.city}<br />{shop.locationHint}</p>
+        </div>
+        <div class="flex flex-wrap items-start gap-3 md:justify-end">
+          <a href={`tel:${shop.phone}`} class="btn-primary">{shop.phoneDisplay} anrufen</a>
+          <a href="/kontakt" class="btn-ghost">Öffnungszeiten & Anfahrt</a>
+        </div>
+      </GlassPanel>
+    </section>
   </div>
 </BaseLayout>
