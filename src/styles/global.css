@@ -21,6 +21,7 @@
   --color-open-600: #1B8A5A;
   --color-closed-600: #B4462B;
   --color-screen-900: #2B2A2C;
+  --color-brand-red: #E2001A; /* Wortmarken-Rot vom Ladenschild (Foto, 2026-09-16); UI-Akzent bleibt Hamburg-Blau */
 
   --radius-panel: 1.5rem;
   --radius-tile: 1.125rem;
@@ -45,6 +46,7 @@
   --text-muted: var(--color-ink-500);
   --accent: var(--color-accent-600);
   --accent-strong: var(--color-accent-700);
+  --brand-red: var(--color-brand-red);
 
   /* Glass material — liquid-glass-ui recipes: "Frosted" for text panels, "Balanced" for tiles */
   --lq-tint-frost: rgba(255, 255, 255, 0.62);

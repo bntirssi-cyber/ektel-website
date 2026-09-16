@@ -124,9 +124,11 @@
 
 ## 5. Logo Usage
 
-- Echtes Logo existiert (Inhaber) → **nachreichen**. Bis dahin SVG-Wortmarke `src/components/Logo.astro` (siehe `docs/logo-brief.md`).
-- Mindesthöhe 24 px, Schutzraum = Höhe des Bildzeichens, monochrom über `currentColor`.
-- Nicht: verzerren, Schatten, Verläufe, andere Farben als Hamburg-Blau/Ink/Weiß.
+- **Echte Wortmarke seit 2026-09-16** (Kunden-Foto der Ladenfront): „EKTEL" in Rot `#E2001A` (`--color-brand-red`), fett, serifenlos, Versalien, ohne Bildzeichen — siehe `docs/logo-brief.md` für Details und Vorbehalt zum exakten Farbwert.
+- Umgesetzt in `src/components/Logo.astro` (Wortmarke), `public/favicon.svg` (rotes Monogramm für Kleindarstellung), `scripts/make-og.mjs` (Social-Preview).
+- Der UI-Akzent (Buttons, Links) bleibt bewusst Hamburg-Blau — die Rotmarke ist auf das Logo selbst begrenzt, nicht auf die ganze Oberfläche ausgeweitet.
+- Mindesthöhe 20 px, Schutzraum = Zeilenhöhe der Wortmarke.
+- Nicht: verzerren, Schatten, Verläufe, andere Rottöne als `--color-brand-red`.
 
 ---
 

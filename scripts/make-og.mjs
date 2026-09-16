@@ -28,14 +28,12 @@ const blurred = await sharp(base)
 
 const overlay = Buffer.from(`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
   <rect x="${panel.x}" y="${panel.y}" width="${panel.w}" height="${panel.h}" rx="${panel.r}" fill="rgba(255,255,255,0.82)" stroke="rgba(15,27,45,0.12)"/>
-  <rect x="120" y="150" width="56" height="56" rx="16" fill="#0E5FB5"/>
-  <path d="M136 168h24M136 178h18M136 188h24" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <text x="196" y="194" font-family="Funnel Display, Arial, sans-serif" font-size="52" font-weight="700" fill="#0F1B2D">EKTEL</text>
-  <text x="120" y="272" font-family="Funnel Sans, Arial, sans-serif" font-size="30" fill="#2A3950">Mobilfunk &amp; Smartphones</text>
-  <text x="120" y="352" font-family="Funnel Display, Arial, sans-serif" font-size="40" font-weight="700" fill="#0F1B2D">Handy kaputt? Wir helfen –</text>
-  <text x="120" y="400" font-family="Funnel Display, Arial, sans-serif" font-size="40" font-weight="700" fill="#0F1B2D">alles an einem Ort.</text>
-  <text x="120" y="470" font-family="Funnel Sans, Arial, sans-serif" font-size="24" font-weight="600" fill="#0E5FB5">Reparatur · Verkauf · Ankauf · SIM</text>
-  <text x="120" y="506" font-family="Funnel Sans, Arial, sans-serif" font-size="22" fill="#2A3950">Bahnhof Hamburg-Altona · 7 Tage die Woche</text>
+  <text x="120" y="180" font-family="Funnel Display, Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="1" fill="#E2001A">EKTEL</text>
+  <text x="120" y="228" font-family="Funnel Sans, Arial, sans-serif" font-size="26" fill="#2A3950">Mobilfunk &amp; Smartphones</text>
+  <text x="120" y="316" font-family="Funnel Display, Arial, sans-serif" font-size="40" font-weight="700" fill="#0F1B2D">Handy kaputt? Wir helfen –</text>
+  <text x="120" y="364" font-family="Funnel Display, Arial, sans-serif" font-size="40" font-weight="700" fill="#0F1B2D">alles an einem Ort.</text>
+  <text x="120" y="436" font-family="Funnel Sans, Arial, sans-serif" font-size="24" font-weight="600" fill="#0E5FB5">Reparatur · Verkauf · Ankauf · SIM</text>
+  <text x="120" y="472" font-family="Funnel Sans, Arial, sans-serif" font-size="22" fill="#2A3950">Bahnhof Hamburg-Altona · 7 Tage die Woche</text>
 </svg>`);
 
 await sharp(base)

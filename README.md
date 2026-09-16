@@ -39,7 +39,7 @@ Weitere Scripts: `npm run og` (OG-Bild neu rendern), `npm run frames` (Frames au
 - [ ] **Zahlungsarten**: bahnhof.de nennt nur Bar – Kartenzahlung? (aktuell nicht erwähnt).
 - [ ] **ÖPNV-Linien** in `shop.transit` prüfen.
 - [ ] **Finale Domain** setzen (`SITE_URL`, `public/robots.txt`).
-- [ ] **Echtes Logo** liefern und `src/components/Logo.astro` + `public/favicon.svg` ersetzen.
+- [ ] **Logo-Farbwert bestätigen**: Rot `#E2001A` in `src/styles/global.css` (`--color-brand-red`) ist vom Kunden-Foto geschätzt, kein Vektor-Original. Bei vorhandener Logodatei (SVG/AI/PDF) bitte nachreichen und in `src/components/Logo.astro`, `public/favicon.svg`, `scripts/make-og.mjs` austauschen — siehe `docs/logo-brief.md`.
 - [ ] **Leistungsdetails** prüfen (Datenrettung, eSIM, Ankauf defekter Geräte – aus Verzeichnissen abgeleitet).
 - [ ] Optional: echte Ladenfotos statt der SVG-Illustrationen in `ServiceTile.astro` / `leistungen.astro`.
 
