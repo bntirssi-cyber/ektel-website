@@ -4,22 +4,30 @@ import sharp from 'sharp';
 
 const W = 1200;
 const H = 630;
-const frame = 'public/phone/desktop/f0056.webp';
+const frame = 'public/phone/desktop/f0045.webp';
 
 const base = await sharp(frame).resize(W, H, { fit: 'cover', position: 'centre' }).toBuffer();
 
-// Frosted panel: blur the region under the panel, then lay a translucent white plate on it.
 const panel = { x: 72, y: 96, w: 600, h: 438, r: 32 };
+
+// Soft drop shadow so the panel separates from the now-light backdrop (no dark
+// studio ground to rely on for contrast, unlike the earlier video source).
+const shadow = await sharp({
+  create: { width: panel.w + 80, height: panel.h + 80, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+})
+  .composite([{ input: Buffer.from(`<svg width="${panel.w + 80}" height="${panel.h + 80}"><rect x="40" y="44" width="${panel.w}" height="${panel.h}" rx="${panel.r}" fill="rgba(15,27,45,0.28)"/></svg>`) }])
+  .blur(22)
+  .png()
+  .toBuffer();
+
+// Frosted panel: blur the region under the panel, then lay a translucent white plate on it.
 const blurred = await sharp(base)
   .extract({ left: panel.x, top: panel.y, width: panel.w, height: panel.h })
   .blur(18)
   .toBuffer();
 
 const overlay = Buffer.from(`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <clipPath id="panel"><rect x="${panel.x}" y="${panel.y}" width="${panel.w}" height="${panel.h}" rx="${panel.r}"/></clipPath>
-  </defs>
-  <rect x="${panel.x}" y="${panel.y}" width="${panel.w}" height="${panel.h}" rx="${panel.r}" fill="rgba(255,255,255,0.78)" stroke="rgba(255,255,255,0.9)"/>
+  <rect x="${panel.x}" y="${panel.y}" width="${panel.w}" height="${panel.h}" rx="${panel.r}" fill="rgba(255,255,255,0.82)" stroke="rgba(15,27,45,0.12)"/>
   <rect x="120" y="150" width="56" height="56" rx="16" fill="#0E5FB5"/>
   <path d="M136 168h24M136 178h18M136 188h24" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
   <text x="196" y="194" font-family="Funnel Display, Arial, sans-serif" font-size="52" font-weight="700" fill="#0F1B2D">EKTEL</text>
@@ -32,6 +40,7 @@ const overlay = Buffer.from(`<svg width="${W}" height="${H}" xmlns="http://www.w
 
 await sharp(base)
   .composite([
+    { input: shadow, left: panel.x - 40, top: panel.y - 40 },
     { input: await sharp(blurred).composite([{ input: Buffer.from(`<svg width="${panel.w}" height="${panel.h}"><rect width="${panel.w}" height="${panel.h}" rx="${panel.r}" fill="#fff"/></svg>`), blend: 'dest-in' }]).png().toBuffer(), left: panel.x, top: panel.y },
     { input: overlay },
   ])

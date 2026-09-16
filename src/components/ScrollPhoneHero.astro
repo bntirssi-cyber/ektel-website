@@ -2,7 +2,8 @@
 /**
  * Hero: bildschirmfüllende, scroll-gescrubbte Explosionsansicht des Smartphones.
  * Text liegt direkt auf dem Video (kein Glas-Panel hier – die Glas-Optik bleibt allen
- * anderen Oberflächen der Site vorbehalten); ein Scrim sorgt für Kontrast auf jedem Frame.
+ * anderen Oberflächen der Site vorbehalten); ein heller Scrim sorgt für Kontrast auf
+ * dem hellen Studio-Hintergrund des Clips.
  */
 import OpenBadge from './OpenBadge.astro';
 import { shop } from '../data/shop';
@@ -21,11 +22,11 @@ const FRAMES = 80;
     <img data-poster src="/phone/poster.webp" width="1280" height="720" alt="" class="absolute inset-0 h-full w-full object-cover" decoding="async" fetchpriority="high" />
     <div class="scrim absolute inset-0" aria-hidden="true"></div>
 
-    <div class="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] text-white md:items-center md:pb-0">
+    <div class="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] text-ink-900 md:items-center md:pb-0">
       <div class="w-full md:max-w-xl">
         <OpenBadge variant="plain" class="mb-4" />
-        <h1 id="hero-title" class="text-3xl font-bold [text-shadow:0_2px_10px_rgba(0,0,0,.45)] md:text-5xl">Handy kaputt? Wir helfen – alles an einem Ort.</h1>
-        <p class="catchline prose-measure mt-3 text-lg text-white/90 [text-shadow:0_1px_6px_rgba(0,0,0,.4)]">
+        <h1 id="hero-title" class="text-3xl font-bold md:text-5xl">Handy kaputt? Wir helfen – alles an einem Ort.</h1>
+        <p class="catchline prose-measure mt-3 text-lg text-ink-700">
           Reparatur, Verkauf und Ankauf – ehrlich beraten, mitten im Bahnhof Altona.
         </p>
         <div class="mt-7 flex flex-wrap gap-3">
@@ -47,13 +48,13 @@ const FRAMES = 80;
 </script>
 <style>
   .scroll-phone { min-height: 300vh; }
-  .screen { background: linear-gradient(180deg, #4a4d56 0%, #53535c 100%); }
+  .screen { background: linear-gradient(180deg, #f4f5f6 0%, #ffffff 100%); }
   .screen[data-ready] img[data-poster] { opacity: 0; }
-  /* Vignette: hält den Text lesbar, ohne das Video mit einer Fläche zu verdecken. */
+  /* Heller Verlauf: hält dunklen Text lesbar, falls ein Schatten oder Bauteil unter ihn wandert. */
   .scrim {
     background:
-      linear-gradient(180deg, transparent 0%, transparent 55%, rgba(10, 12, 16, 0.62) 100%),
-      linear-gradient(100deg, rgba(10, 12, 16, 0.58) 0%, rgba(10, 12, 16, 0.22) 38%, transparent 62%);
+      linear-gradient(180deg, transparent 0%, transparent 55%, rgba(255, 255, 255, 0.78) 100%),
+      linear-gradient(100deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.45) 38%, transparent 62%);
   }
   @media (max-height: 640px) {
     .catchline { display: none; }

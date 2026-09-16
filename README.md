@@ -12,7 +12,7 @@ npm run build      # astro check + Build nach dist/
 npm run preview
 ```
 
-Weitere Scripts: `npm run og` (OG-Bild neu rendern), `npm run frames` (Frames aus `header/*.mp4` neu extrahieren; benötigt Python + OpenCV).
+Weitere Scripts: `npm run og` (OG-Bild neu rendern), `npm run frames` (Frames aus `header/a7e11ac7189d4fc2ac921d95e6f3e2d8.mp4` neu extrahieren, Quelle in `scripts/extract-frames.py`; benötigt Python + OpenCV).
 
 ## Konfiguration (`.env`, siehe `.env.example`)
 
