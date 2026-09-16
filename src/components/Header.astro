@@ -9,7 +9,7 @@ const items = [
 ] as const;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="sticky top-0 z-40 px-4 pt-3">
+<header data-header class="sticky top-0 z-40 px-4 pt-3">
   <div class="glass-frosted mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 md:px-5">
     <a href="/" class="flex items-center text-ink-900" aria-label="EKTEL – zur Startseite"><Logo /></a>
 
@@ -38,6 +38,14 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     </div>
   </div>
 </header>
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    const setVar = () => document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+    setVar();
+    new ResizeObserver(setVar).observe(header);
+  }
+</script>
 <script>
   // Mobile-Menü: schließt bei Klick außerhalb und mit Escape.
   const menu = document.querySelector<HTMLDetailsElement>('[data-menu]');

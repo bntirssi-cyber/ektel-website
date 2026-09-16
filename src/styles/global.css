@@ -36,6 +36,7 @@
    --------------------------------------------------------------------------- */
 :root {
   color-scheme: light;
+  --header-h: 4.5rem; /* Server-side fallback; Header.astro misst und ueberschreibt den echten Wert per JS */
 
   --surface-page: var(--color-sky-50);
   --surface-line: var(--color-sky-200);

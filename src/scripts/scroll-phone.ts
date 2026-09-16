@@ -44,7 +44,7 @@ if (section && !reduce.matches) {
       const ch = canvas!.height;
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
-      const focusX = wide.matches ? 0.68 : 0.5;
+      const focusX = wide.matches ? 0.62 : 0.5;
       const s = Math.max(cw / iw, ch / ih);
       const w = iw * s;
       const h = ih * s;

@@ -1,6 +1,7 @@
 """Extract a scroll-scrub frame sequence from the client's phone teardown video.
 
-Source: header/tech header background anination.mp4 (1920x1080, 30 fps, ~9.8 s).
+Source: header/cd2264868a0e4e79a0b92a602801d499.mp4 (1920x1080, 60 fps, ~9.8 s) â
+the higher-frame-rate of the two clips the client supplied in header/.
 Output: public/phone/{desktop,mobile}/fNNNN.webp + public/phone/poster.webp
 """
 import os
@@ -8,7 +9,7 @@ import sys
 
 import cv2
 
-SRC = 'header/tech header background anination.mp4'
+SRC = 'header/cd2264868a0e4e79a0b92a602801d499.mp4'
 N = 80
 SETS = (('desktop', 1280), ('mobile', 720))
 
