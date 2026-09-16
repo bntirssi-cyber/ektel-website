@@ -63,18 +63,27 @@ if (section && !reduce.matches) {
       screen!.dataset.ready = '';
     }
 
+    /** Lädt die Frames in Scroll-Reihenfolge mit begrenzter Parallelität, damit das LCP nicht leidet. */
     function load() {
       if (loading) return;
       loading = true;
       for (let i = 0; i < total; i++) {
         const img = new Image();
         img.decoding = 'async';
-        img.src = src(i);
         img.onload = () => {
           if (i === Math.round(current)) draw(i);
         };
         images.push(img);
       }
+      let next = 0;
+      const startNext = () => {
+        if (next >= total) return;
+        const img = images[next++];
+        img.addEventListener('load', startNext, { once: true });
+        img.addEventListener('error', startNext, { once: true });
+        img.src = src(next - 1);
+      };
+      for (let k = 0; k < 6; k++) startNext();
     }
 
     function progress() {

@@ -24,14 +24,32 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       <a href={`tel:${shop.phone}`} class="btn-primary">Jetzt anrufen</a>
     </nav>
 
-    <details class="relative md:hidden">
-      <summary class="btn-ghost cursor-pointer list-none [&::-webkit-details-marker]:hidden">Menü</summary>
+    <div class="flex items-center gap-2 md:hidden">
+      <a href={`tel:${shop.phone}`} class="btn-primary px-4" aria-label="Jetzt anrufen">Anrufen</a>
+      <details data-menu class="relative">
+        <summary class="btn-ghost cursor-pointer list-none px-4 [&::-webkit-details-marker]:hidden">Menü</summary>
       <div class="glass-frosted absolute right-0 mt-2 flex w-60 flex-col gap-1 p-2">
         {items.map(([href, label]) => (
           <a href={href} aria-current={path === href ? 'page' : undefined} class="rounded-xl px-3 py-3 font-semibold text-ink-900 hover:bg-sky-100 aria-[current=page]:text-accent-700">{label}</a>
         ))}
         <a href={`tel:${shop.phone}`} class="btn-primary mt-1">Jetzt anrufen</a>
       </div>
-    </details>
+      </details>
+    </div>
   </div>
 </header>
+<script>
+  // Mobile-Menü: schließt bei Klick außerhalb und mit Escape.
+  const menu = document.querySelector<HTMLDetailsElement>('[data-menu]');
+  if (menu) {
+    document.addEventListener('click', (e) => {
+      if (menu.open && !menu.contains(e.target as Node)) menu.open = false;
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.open) {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+    });
+  }
+</script>

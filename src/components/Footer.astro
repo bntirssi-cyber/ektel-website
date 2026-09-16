@@ -2,7 +2,7 @@
 import { shop } from '../data/shop';
 const year = new Date().getFullYear();
 ---
-<footer class="mt-24 border-t border-sky-200 bg-sky-100/70 px-4 py-10 text-sm text-ink-700">
+<footer class="mt-24 border-t border-sky-200 bg-sky-100/70 px-4 pt-10 text-sm text-ink-700 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
   <div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
     <div>
       <p class="font-display text-lg font-bold text-ink-900">{shop.name}</p>
@@ -15,8 +15,8 @@ const year = new Date().getFullYear();
       <p class="mt-1 text-ink-500">{shop.hoursNote}</p>
     </div>
     <nav aria-label="Rechtliches" class="flex flex-col gap-2">
-      <a href="/impressum" class="hover:text-accent-700">Impressum</a>
-      <a href="/datenschutz" class="hover:text-accent-700">Datenschutz</a>
+      <a href="/impressum" class="inline-block py-2 hover:text-accent-700">Impressum</a>
+      <a href="/datenschutz" class="inline-block py-2 hover:text-accent-700">Datenschutz</a>
     </nav>
   </div>
   <p class="mx-auto mt-8 max-w-6xl text-ink-500">© {year} {shop.name} · Inh. {shop.owner}</p>

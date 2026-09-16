@@ -19,11 +19,11 @@ const FRAMES = 80;
     <canvas data-canvas class="absolute inset-0 block h-full w-full" aria-label="Smartphone in Einzelteilen: Display, Akku und Platine heben sich beim Scrollen voneinander ab" role="img"></canvas>
     <img data-poster src="/phone/poster.webp" width="1280" height="720" alt="" class="absolute inset-0 h-full w-full object-cover" decoding="async" fetchpriority="high" />
 
-    <div class="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pb-6 pt-24 md:items-center md:pb-0">
+    <div class="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:items-center md:pb-0">
       <GlassPanel as="div" variant="frosted" class="w-full p-6 md:max-w-xl md:p-10">
         <OpenBadge class="mb-5" />
         <h1 id="hero-title" class="text-3xl font-bold md:text-5xl">Handy kaputt? Wir helfen – alles an einem Ort.</h1>
-        <p class="prose-measure mt-4 hidden text-ink-700 md:block">
+        <p class="hero-lead prose-measure mt-4 hidden text-ink-700 md:block">
           Reparatur, Smartphones, Zubehör, Ankauf und SIM-Karten – im Bahnhof Altona, sieben Tage die Woche.
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
@@ -42,6 +42,13 @@ const FRAMES = 80;
     </div>
   </div>
 </section>
+<noscript>
+  <style>
+    .scroll-phone { min-height: 0 !important; }
+    .scroll-phone .screen { position: static !important; height: auto !important; min-height: 100dvh; }
+    .scroll-phone .step { display: block !important; margin-top: 0.5rem; }
+  </style>
+</noscript>
 <script>
   import '../scripts/scroll-phone';
 </script>
@@ -52,6 +59,11 @@ const FRAMES = 80;
   /* Nur der aktive Bauteil-Schritt ist sichtbar; der Zustand spricht als Text. */
   .step:not([data-active]) { display: none; }
   .step-title { color: var(--accent-strong); }
+  /* Niedrige (Landscape-)Viewports: Tafel kompakt halten, damit sie in 100dvh passt */
+  @media (max-height: 640px) {
+    .hero-lead, .step-text { display: none; }
+    .scroll-phone h1 { font-size: 1.5rem; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .scroll-phone { min-height: 0; }
     .screen { position: static; height: auto; min-height: 100dvh; }

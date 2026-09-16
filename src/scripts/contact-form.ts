@@ -41,13 +41,24 @@ if (form) {
       return;
     }
 
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+    if (submit?.disabled) return; // Doppel-Submit verhindern
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = 'Wird gesendet …';
+    }
     try {
       const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
       show(status, 'Vielen Dank – wir melden uns so schnell wie möglich.');
     } catch {
-      show(status, `Senden fehlgeschlagen. Rufen Sie uns gern an: ${form.dataset.phone}`);
+      show(status, `Senden fehlgeschlagen – Ihre Eingaben bleiben erhalten. Rufen Sie uns gern an: ${form.dataset.phone}`);
+    } finally {
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = 'Anfrage senden';
+      }
     }
   });
 }

@@ -11,7 +11,7 @@ import { shop } from '../data/shop';
       <p class="prose-measure mt-4 text-lg text-ink-700">Alles rund ums Smartphone an einem Ort – ohne Termin, sieben Tage die Woche.</p>
       <nav aria-label="Leistungen" class="mt-6 flex flex-wrap gap-2">
         {shop.services.map((s) => (
-          <a href={`#${s.slug}`} class="rounded-full border border-sky-200 bg-white/70 px-4 py-2 font-semibold text-ink-900 hover:border-accent-600">{s.title}</a>
+          <a href={`#${s.slug}`} class="inline-flex min-h-11 items-center rounded-full border border-sky-200 bg-white/70 px-4 font-semibold text-ink-900 hover:border-accent-600">{s.title}</a>
         ))}
       </nav>
     </section>
