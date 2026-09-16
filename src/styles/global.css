@@ -67,8 +67,12 @@
   /* Dark liquid glass — used only inside .surface-dark (below the hero). Light tint over a
      dark red-glow backdrop, so the glow bleeds softly through the panel instead of being
      hidden under an opaque card. See liquid-glass-ui skill: "Frosted" tier, tuned dark. */
-  --lqd-tint-hi: rgba(255, 255, 255, 0.10);
-  --lqd-tint-lo: rgba(255, 255, 255, 0.03);
+  /* Dark, not light: the animated gradient behind these cards swings from
+     near-black to bright warm tones, so a light tint would wash the text out
+     whenever the backdrop brightens. A dark, fairly opaque fill stays legible
+     across the whole animation; the light rim below still reads as glass. */
+  --lqd-tint-hi: rgba(12, 5, 6, 0.62);
+  --lqd-tint-lo: rgba(12, 5, 6, 0.82);
   --lqd-rim-hi: rgba(255, 255, 255, 0.22);
   --lqd-rim-lo: rgba(226, 0, 26, 0.22);
   --lqd-highlight: rgba(255, 255, 255, 0.16);
@@ -207,9 +211,9 @@
     border-radius: var(--radius-panel);
   }
   .glass-dark-balanced {
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
-    backdrop-filter: blur(10px) saturate(140%);
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    background: linear-gradient(165deg, rgba(12, 5, 6, 0.5), rgba(12, 5, 6, 0.68));
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
     border: 1px solid var(--lqd-rim-lo);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), var(--lqd-shadow);
     border-radius: var(--radius-tile);
@@ -217,6 +221,23 @@
   @supports not (backdrop-filter: blur(1px)) {
     .glass-dark-frosted { background: rgba(30, 12, 14, 0.92); }
     .glass-dark-balanced { background: rgba(30, 12, 14, 0.88); }
+  }
+
+  /* Small dark-glass pill — status badges, anchor chips — same material, rounded-full. */
+  .chip-dark-glass {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border-radius: var(--radius-control); padding: 0.375rem 0.875rem;
+    font-size: 0.875rem; font-weight: 600; color: #fff; text-decoration: none;
+    background: linear-gradient(165deg, rgba(12, 5, 6, 0.55), rgba(12, 5, 6, 0.72));
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border: 1px solid var(--lqd-rim-lo);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+  .chip-dark-glass:hover { border-color: rgba(226, 0, 26, 0.55); }
+  @supports not (backdrop-filter: blur(1px)) {
+    .chip-dark-glass { background: rgba(20, 8, 10, 0.9); }
   }
 
   /* Shared hover lift for the offer/service cards: scale + rise + red glow — one grammar

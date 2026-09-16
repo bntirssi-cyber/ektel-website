@@ -1,0 +1,11 @@
+---
+/**
+ * Full-bleed animated 3D gradient canvas (@firecms/neat) for the dark section.
+ * Sits behind everything as the first child of `.surface-dark`; see
+ * src/scripts/dark-gradient.ts for the lazy-mount/reduced-motion logic.
+ */
+---
+<canvas data-neat-canvas class="pointer-events-none absolute inset-0 -z-10 h-full w-full" aria-hidden="true"></canvas>
+<script>
+  import '../scripts/dark-gradient';
+</script>

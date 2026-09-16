@@ -1,9 +1,10 @@
 ---
 import { shop } from '../data/shop';
-interface Props { class?: string; variant?: 'pill' | 'plain' }
+interface Props { class?: string; variant?: 'pill' | 'plain' | 'glass-dark' }
 const { class: cls = '', variant = 'pill' } = Astro.props;
-const base = variant === 'pill'
-  ? 'rounded-full border border-sky-200 bg-white/70 px-3 py-1.5 text-ink-700'
+const base =
+  variant === 'pill' ? 'rounded-full border border-sky-200 bg-white/70 px-3 py-1.5 text-ink-700'
+  : variant === 'glass-dark' ? 'chip-dark-glass'
   : 'text-current';
 ---
 <p data-open-badge class={`inline-flex items-center gap-2 text-sm font-semibold ${base} ${cls}`} aria-live="polite">

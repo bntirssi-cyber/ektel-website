@@ -1,5 +1,15 @@
 ---
-export interface Props { variant?: 'frosted' | 'balanced'; as?: 'section' | 'div' | 'article'; class?: string; id?: string }
-const { variant = 'frosted', as: Tag = 'div', class: cls = '', id } = Astro.props;
+export interface Props {
+  variant?: 'frosted' | 'balanced';
+  theme?: 'light' | 'dark';
+  as?: 'section' | 'div' | 'article';
+  class?: string;
+  id?: string;
+}
+const { variant = 'frosted', theme = 'light', as: Tag = 'div', class: cls = '', id } = Astro.props;
+const base =
+  theme === 'dark'
+    ? variant === 'frosted' ? 'glass-dark-frosted' : 'glass-dark-balanced'
+    : variant === 'frosted' ? 'glass-frosted' : 'glass-balanced';
 ---
-<Tag id={id} class={`${variant === 'frosted' ? 'glass-frosted' : 'glass-balanced'} ${cls}`}><slot /></Tag>
+<Tag id={id} class={`${base} ${cls}`}><slot /></Tag>

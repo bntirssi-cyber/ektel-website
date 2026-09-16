@@ -13,13 +13,13 @@ const fields = [
   {fields.map((f) => (
     <div class="grid gap-1.5">
       <label for={f.id} class="font-semibold">{f.label}{f.required && <span aria-hidden="true"> *</span>}</label>
-      <input id={f.id} name={f.id} type={f.type} autocomplete={f.autocomplete} required={f.required} aria-describedby={`${f.id}-error`} maxlength="120" class="min-h-12 rounded-xl border border-sky-200 bg-white/80 px-4" />
+      <input id={f.id} name={f.id} type={f.type} autocomplete={f.autocomplete} required={f.required} aria-describedby={`${f.id}-error`} maxlength="120" class="min-h-12 rounded-xl border border-black/15 bg-white/95 px-4 text-[#0F1B2D]" />
       <p id={`${f.id}-error`} data-error-for={f.id} class="hidden text-sm font-semibold text-closed-600" aria-live="polite"></p>
     </div>
   ))}
   <div class="grid gap-1.5">
     <label for="message" class="font-semibold">Was ist passiert? <span aria-hidden="true">*</span></label>
-    <textarea id="message" name="message" rows="5" required maxlength="2000" aria-describedby="message-error" class="rounded-xl border border-sky-200 bg-white/80 px-4 py-3"></textarea>
+    <textarea id="message" name="message" rows="5" required maxlength="2000" aria-describedby="message-error" class="rounded-xl border border-black/15 bg-white/95 px-4 py-3 text-[#0F1B2D]"></textarea>
     <p id="message-error" data-error-for="message" class="hidden text-sm font-semibold text-closed-600" aria-live="polite"></p>
   </div>
   <p class="sr-only" aria-hidden="true">

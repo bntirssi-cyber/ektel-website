@@ -6,6 +6,7 @@ import ServiceTile from '../components/ServiceTile.astro';
 import ReviewsPanel from '../components/ReviewsPanel.astro';
 import TrustStrip from '../components/TrustStrip.astro';
 import ClosingCta from '../components/ClosingCta.astro';
+import DarkGradient from '../components/DarkGradient.astro';
 import { shop } from '../data/shop';
 
 const title = 'EKTEL Mobilfunk & Smartphones – Reparatur, Verkauf, Ankauf im Bahnhof Altona';
@@ -14,19 +15,23 @@ const description = `Smartphone-Reparatur, Verkauf, Ankauf und SIM-Karten direkt
 <BaseLayout title={title} description={description}>
   <ScrollPhoneHero />
 
-  <div class="surface-dark">
-    <section aria-labelledby="services-title" class="mx-auto max-w-6xl px-4 pb-16 pt-20">
-      <h2 id="services-title" class="text-3xl font-bold md:text-4xl">Was wir für Sie tun</h2>
-      <div data-reveal-group class="mt-8 grid gap-6 md:grid-cols-12">
-        <ServicePhotoCard service={shop.services[0]} />
-        <ServiceTile service={shop.services[1]} />
-        <ServiceTile service={shop.services[2]} />
-        <ServiceTile service={shop.services[3]} size="lg" />
-      </div>
-    </section>
+  <div class="surface-dark relative isolate overflow-hidden">
+    <DarkGradient />
 
-    <ReviewsPanel />
-    <TrustStrip />
+    <div class="relative z-10">
+      <section aria-labelledby="services-title" class="mx-auto max-w-6xl px-4 pb-16 pt-20">
+        <h2 id="services-title" class="text-3xl font-bold md:text-4xl">Was wir für Sie tun</h2>
+        <div data-reveal-group class="mt-8 grid gap-6 md:grid-cols-12">
+          <ServicePhotoCard service={shop.services[0]} />
+          <ServiceTile service={shop.services[1]} />
+          <ServiceTile service={shop.services[2]} />
+          <ServiceTile service={shop.services[3]} size="lg" />
+        </div>
+      </section>
+
+      <ReviewsPanel />
+      <TrustStrip />
+    </div>
   </div>
 
   <ClosingCta />
