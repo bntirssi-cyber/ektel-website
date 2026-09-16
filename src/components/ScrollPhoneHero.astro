@@ -1,0 +1,60 @@
+---
+/**
+ * Hero: bildschirmfüllende, scroll-gescrubbte Explosionsansicht des Smartphones.
+ * Beim Scrollen öffnet sich das Gerät; daneben die Glas-Tafel mit Headline und Aktionen.
+ */
+import GlassPanel from './GlassPanel.astro';
+import OpenBadge from './OpenBadge.astro';
+import { shop } from '../data/shop';
+
+const steps = [
+  { title: 'Display', text: 'Gesprungenes Glas, Streifen oder kein Bild – wir tauschen Display und Touch.' },
+  { title: 'Akku & Ladebuchse', text: 'Schnell leer oder lädt nicht mehr – Akku und Buchse ersetzen wir vor Ort.' },
+  { title: 'Hauptplatine', text: 'Wasserschaden, Softwarefehler, Datenrettung – wir schauen bis auf die Platine.' },
+] as const;
+const FRAMES = 80;
+---
+<section data-scroll-phone data-frames={FRAMES} class="scroll-phone relative -mt-16" aria-labelledby="hero-title">
+  <div class="screen sticky top-0 h-dvh overflow-hidden">
+    <canvas data-canvas class="absolute inset-0 block h-full w-full" aria-label="Smartphone in Einzelteilen: Display, Akku und Platine heben sich beim Scrollen voneinander ab" role="img"></canvas>
+    <img data-poster src="/phone/poster.webp" width="1280" height="720" alt="" class="absolute inset-0 h-full w-full object-cover" decoding="async" fetchpriority="high" />
+
+    <div class="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pb-6 pt-24 md:items-center md:pb-0">
+      <GlassPanel as="div" variant="frosted" class="w-full p-6 md:max-w-xl md:p-10">
+        <OpenBadge class="mb-5" />
+        <h1 id="hero-title" class="text-3xl font-bold md:text-5xl">Handy kaputt? Wir helfen – alles an einem Ort.</h1>
+        <p class="prose-measure mt-4 hidden text-ink-700 md:block">
+          Reparatur, Smartphones, Zubehör, Ankauf und SIM-Karten – im Bahnhof Altona, sieben Tage die Woche.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={`tel:${shop.phone}`} class="btn-primary">Jetzt anrufen</a>
+          <a href={shop.mapsUrl} class="btn-ghost" rel="noopener" target="_blank">Route planen</a>
+        </div>
+        <ol class="mt-6 border-t border-sky-200 pt-4">
+          {steps.map((s, i) => (
+            <li data-step={i} class="step">
+              <p class="step-title font-bold">{s.title}</p>
+              <p class="step-text text-sm text-ink-700">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </GlassPanel>
+    </div>
+  </div>
+</section>
+<script>
+  import '../scripts/scroll-phone';
+</script>
+<style>
+  .scroll-phone { min-height: 300vh; }
+  .screen { background: linear-gradient(180deg, #4a4d56 0%, #53535c 100%); }
+  .screen[data-ready] img[data-poster] { opacity: 0; }
+  /* Nur der aktive Bauteil-Schritt ist sichtbar; der Zustand spricht als Text. */
+  .step:not([data-active]) { display: none; }
+  .step-title { color: var(--accent-strong); }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-phone { min-height: 0; }
+    .screen { position: static; height: auto; min-height: 100dvh; }
+    .step, .step:not([data-active]) { display: block; margin-top: 0.5rem; }
+  }
+</style>

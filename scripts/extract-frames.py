@@ -33,6 +33,6 @@ for name, width in SETS:
         small = cv2.resize(fr, (width, h), interpolation=cv2.INTER_AREA)
         cv2.imwrite(f'{out_dir}/f{i + 1:04d}.webp', small, [cv2.IMWRITE_WEBP_QUALITY, 80])
 
-poster = cv2.resize(frames[-1], (1280, 720), interpolation=cv2.INTER_AREA)
+poster = cv2.resize(frames[0], (1280, 720), interpolation=cv2.INTER_AREA)  # Startbild = geschlossenes Telefon
 cv2.imwrite('public/phone/poster.webp', poster, [cv2.IMWRITE_WEBP_QUALITY, 82])
 print(f'wrote {N} frames x {len(SETS)} sets + poster')
