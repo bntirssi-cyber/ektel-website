@@ -1,11 +1,10 @@
 ---
 /**
  * Hero: bildschirmfüllende, scroll-gescrubbte Explosionsansicht des Smartphones.
- * Text liegt direkt auf dem Video (kein Glas-Panel hier – die Glas-Optik bleibt allen
- * anderen Oberflächen der Site vorbehalten); ein heller Scrim sorgt für Kontrast auf
- * dem hellen Studio-Hintergrund des Clips.
+ * Nur die Headline liegt direkt auf dem Video, links am Bildschirmrand, in sehr großer
+ * Schrift (Kundenwunsch 2026-09-16) – kein Glas-Panel, kein Fülltext, nur ein heller
+ * Scrim für Kontrast. Rechts bleibt Platz für die Scroll-Animation.
  */
-import OpenBadge from './OpenBadge.astro';
 import { shop } from '../data/shop';
 
 const FRAMES = 80;
@@ -22,14 +21,10 @@ const FRAMES = 80;
     <img data-poster src="/phone/poster.webp" width="1920" height="1080" alt="" class="absolute inset-0 h-full w-full object-cover" decoding="async" fetchpriority="high" />
     <div class="scrim absolute inset-0" aria-hidden="true"></div>
 
-    <div class="relative z-10 mx-auto flex h-full max-w-6xl items-end px-4 pt-24 pb-[max(2rem,env(safe-area-inset-bottom))] text-ink-900 md:items-center md:pb-0">
-      <div class="w-full md:max-w-xl">
-        <OpenBadge variant="plain" class="mb-4" />
-        <h1 id="hero-title" class="text-3xl font-bold md:text-5xl">Handy kaputt? Wir helfen – alles an einem Ort.</h1>
-        <p class="catchline prose-measure mt-3 text-lg text-ink-700">
-          Reparatur, Verkauf und Ankauf – ehrlich beraten, mitten im Bahnhof Altona.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-3">
+    <div class="relative z-10 flex h-full items-end px-5 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-24 text-ink-900 sm:px-8 md:items-center lg:px-14">
+      <div>
+        <h1 id="hero-title" class="max-w-[18ch] text-[clamp(2.25rem,6vw,4.75rem)] font-bold leading-[0.98]">Handy kaputt? Wir helfen – alles an einem Ort.</h1>
+        <div class="mt-8 flex flex-wrap gap-3">
           <a href={`tel:${shop.phone}`} class="btn-primary">Jetzt anrufen</a>
           <a href={shop.mapsUrl} class="btn-ghost" rel="noopener" target="_blank">Route planen</a>
         </div>
@@ -53,12 +48,11 @@ const FRAMES = 80;
   /* Heller Verlauf: hält dunklen Text lesbar, falls ein Schatten oder Bauteil unter ihn wandert. */
   .scrim {
     background:
-      linear-gradient(180deg, transparent 0%, transparent 55%, rgba(255, 255, 255, 0.78) 100%),
-      linear-gradient(100deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.45) 38%, transparent 62%);
+      linear-gradient(180deg, transparent 0%, transparent 55%, rgba(255, 255, 255, 0.7) 100%),
+      linear-gradient(100deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 34%, transparent 58%);
   }
   @media (max-height: 640px) {
-    .catchline { display: none; }
-    .scroll-phone h1 { font-size: 1.5rem; }
+    .scroll-phone h1 { font-size: clamp(1.75rem, 6vw, 3rem); }
   }
   @media (prefers-reduced-motion: reduce) {
     .scroll-phone { min-height: 0; }

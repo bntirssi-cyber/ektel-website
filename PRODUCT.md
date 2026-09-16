@@ -50,10 +50,11 @@ Not claimed: same-day repair promises, best-price claims, or the station locatio
 ## Brand Commitments
 
 - Name: EKTEL Mobilfunk & Smartphones (owner: Aysun Eker).
-- **A real logo exists but was not supplied yet.** The site ships an SVG wordmark in `src/components/Logo.astro` as a placeholder; swap it for the real logo when provided.
-- Binding visual constraint volunteered by the client: a Vanta.js CLOUDS animated sky in the hero with "liquid glass" (frosted, translucent) panels on top; a light, airy look.
-- Binding reference named by the client: **Apple design language** (Liquid Glass materials, restraint, generous whitespace, product-like presentation). No "apple-design" skill is installed; it is applied through the liquid-glass-ui skill and Apple HIG principles.
-- Formal "Sie" address and a sober tone are untouchable. A technical/gaming look (neon, dark panels, jargon) is explicitly wrong for this brand.
+- **Real logo supplied 2026-09-16** (client photo of the shop's storefront signage): "EKTEL" wordmark in red `#E2001A`, bold, sans-serif, no icon. Implemented in `src/components/Logo.astro`; exact hex is estimated from the photo pending a vector original (see `docs/logo-brief.md`). **2026-09-16 follow-up: the client extended this red from the logo to the entire site's accent color** (was Hamburg-blue at launch) — see `docs/design-notes.md`.
+- Hero: originally a Vanta.js CLOUDS animated sky; replaced 2026-09-16 with a scroll-scrubbed photo teardown of a smartphone (client-supplied video) after the client judged clouds a mismatch for the red brand. No Vanta/three.js dependency remains.
+- Binding reference named by the client: **Apple design language** (Liquid Glass materials, restraint, generous whitespace, product-like presentation). No "apple-design" skill is installed; applied through the liquid-glass-ui skill and Apple HIG principles.
+- **2026-09-16 update:** below the hero, the client explicitly asked for a **dark** background with soft red glow ("wie ein Dark Mode, aber mit roten verschwommenen Akzenten") and liquid-glass cards on it — this supersedes the original "light, airy, no dark panels" constraint for that region specifically. The hero, header, and `/leistungen`/`/kontakt`/legal pages stay on the original light theme. A neon/gaming/jargon look is still explicitly wrong — the dark treatment reads as premium/Apple dark-mode, not tech/gaming.
+- Formal "Sie" address and a sober tone are untouchable.
 
 ## Evidence on Hand
 

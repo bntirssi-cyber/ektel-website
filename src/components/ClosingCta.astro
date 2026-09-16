@@ -1,0 +1,36 @@
+---
+/** Kräftiger roter Abschluss-Block vor dem Footer — der zweite Aktionspunkt neben dem Hero. */
+import { shop } from '../data/shop';
+---
+<section aria-labelledby="cta-title" class="cta-band relative overflow-hidden px-4 py-20 text-white">
+  <div data-reveal class="relative z-10 mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-2">
+    <div>
+      <h2 id="cta-title" class="text-3xl font-bold md:text-4xl">So finden Sie uns</h2>
+      <p class="prose-measure mt-3 text-white/85">{shop.street}, {shop.zip} {shop.city} · {shop.locationHint}</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-3 md:justify-end">
+      <a href={`tel:${shop.phone}`} class="cta-primary">{shop.phoneDisplay} anrufen</a>
+      <a href="/kontakt" class="btn-ghost">Öffnungszeiten & Anfahrt</a>
+    </div>
+  </div>
+</section>
+<script>
+  import '../scripts/scroll-reveal';
+</script>
+<style>
+  .cta-band {
+    background: linear-gradient(135deg, var(--color-accent-700) 0%, var(--color-accent-600) 55%, #ff2e46 120%);
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(40rem 20rem at 90% 0%, rgba(255, 255, 255, 0.14), transparent 60%);
+  }
+  .cta-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 3rem; padding: 0.75rem 1.5rem; border-radius: 999px;
+    background: #fff; color: var(--color-accent-700); font-weight: 700; text-decoration: none;
+    transition: transform 150ms ease;
+  }
+  .cta-primary:hover { transform: translateY(-2px); }
+</style>

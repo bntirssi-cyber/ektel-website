@@ -1,0 +1,53 @@
+---
+/**
+ * Flagship-Kachel für „Reparatur" — echte Werkstattfotos statt Illustration, damit
+ * dieser wichtigste Leistungsblock sich sichtbar von den übrigen drei abhebt.
+ * Dunkles Liquid Glass, wie die übrigen Karten in .surface-dark.
+ */
+import { Image } from 'astro:assets';
+import type { Service } from '../data/shop';
+import workbench from '../assets/img/repair-workbench.jpg';
+import display from '../assets/img/repair-display.jpg';
+import microscope from '../assets/img/repair-microscope.jpg';
+
+interface Props { service: Service }
+const { service } = Astro.props;
+---
+<article data-reveal class="card-hover group overflow-hidden md:col-span-7 md:grid md:grid-cols-2 glass-dark-frosted">
+  <div class="grid grid-cols-2 grid-rows-2 gap-1 p-1 md:h-full">
+    <Image
+      src={workbench}
+      alt="Techniker öffnet ein Smartphone mit einem Präzisionsschraubendreher auf einer ESD-Unterlage"
+      widths={[360, 640]}
+      sizes="(min-width: 768px) 22vw, 50vw"
+      class="col-span-2 h-40 w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-105 md:h-auto md:flex-1"
+      loading="lazy"
+    />
+    <Image
+      src={display}
+      alt="Neues Display-Glas wird für den Einbau auf ein Smartphone aufgelegt"
+      widths={[240, 420]}
+      sizes="(min-width: 768px) 11vw, 25vw"
+      class="h-24 w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-105 md:h-full"
+      loading="lazy"
+    />
+    <Image
+      src={microscope}
+      alt="Platine eines Smartphones unter dem Mikroskop bei der Fehlersuche"
+      widths={[240, 420]}
+      sizes="(min-width: 768px) 11vw, 25vw"
+      class="h-24 w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-105 md:h-full"
+      loading="lazy"
+    />
+  </div>
+  <div class="p-6 md:p-8">
+    <h3 class="text-2xl font-bold">{service.title}</h3>
+    <p class="prose-measure mt-2 text-ink-700">{service.summary}</p>
+    <ul class="mt-4 space-y-1.5 text-sm text-ink-700">
+      {service.bullets.slice(0, 4).map((b) => (
+        <li class="flex gap-2"><span aria-hidden="true" class="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent-600"></span><span>{b}</span></li>
+      ))}
+    </ul>
+    <a href={`/leistungen#${service.slug}`} class="mt-5 inline-flex items-center gap-1.5 font-semibold text-accent-600 underline-offset-4 group-hover:underline">Mehr zu {service.title}</a>
+  </div>
+</article>

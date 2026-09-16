@@ -16,12 +16,14 @@
   --color-ink-900: #0F1B2D;
   --color-ink-700: #2A3950;
   --color-ink-500: #55647A;
-  --color-accent-600: #0E5FB5;
-  --color-accent-700: #0A4B90;
+  --color-accent-600: #E2001A; /* = Ladenschild-Rot (docs/logo-brief.md); Site-Akzent seit 2026-09-16 vollständig umgestellt */
+  --color-accent-700: #AA0013;
+  --color-accent-50: #FDEEEF;
+  --color-accent-100: #FBD9DB;
   --color-open-600: #1B8A5A;
-  --color-closed-600: #B4462B;
+  --color-closed-600: #946200;
   --color-screen-900: #2B2A2C;
-  --color-brand-red: #E2001A; /* Wortmarken-Rot vom Ladenschild (Foto, 2026-09-16); UI-Akzent bleibt Hamburg-Blau */
+  --color-brand-red: #E2001A;
 
   --radius-panel: 1.5rem;
   --radius-tile: 1.125rem;
@@ -61,6 +63,17 @@
 
   --control-height: 3rem;
   --control-padding-x: 1.5rem;
+
+  /* Dark liquid glass — used only inside .surface-dark (below the hero). Light tint over a
+     dark red-glow backdrop, so the glow bleeds softly through the panel instead of being
+     hidden under an opaque card. See liquid-glass-ui skill: "Frosted" tier, tuned dark. */
+  --lqd-tint-hi: rgba(255, 255, 255, 0.10);
+  --lqd-tint-lo: rgba(255, 255, 255, 0.03);
+  --lqd-rim-hi: rgba(255, 255, 255, 0.22);
+  --lqd-rim-lo: rgba(226, 0, 26, 0.22);
+  --lqd-highlight: rgba(255, 255, 255, 0.16);
+  --lqd-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.65), 0 0 46px -18px rgba(226, 0, 26, 0.45);
+  --lqd-blur: 18px;
 }
 
 @layer base {
@@ -125,24 +138,123 @@
     cursor: pointer; transition: background-color 150ms ease;
   }
   .btn-primary:hover { background: var(--accent-strong); }
+  /* Dark glass pill — every secondary button site-wide (Menü, Route planen, Öffnungszeiten
+     & Anfahrt, …). Reads as glass over the bright hero video and over the dark sections alike:
+     it carries its own dark fill, so it never needs a busy backdrop to look "liquid". */
   .btn-ghost {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
     min-height: var(--control-height); padding: 0.75rem var(--control-padding-x);
     border-radius: var(--radius-control);
-    border: 1px solid var(--text-secondary); color: var(--text-primary); font-weight: 600; text-decoration: none;
-    background: rgba(255, 255, 255, 0.35); cursor: pointer; transition: background-color 150ms ease;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff; font-weight: 600; text-decoration: none;
+    background: linear-gradient(160deg, rgba(40, 12, 16, 0.72), rgba(18, 6, 8, 0.72));
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 10px 30px -14px rgba(226, 0, 26, 0.45);
+    cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   }
-  .btn-ghost:hover { background: rgba(255, 255, 255, 0.7); }
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    border-color: rgba(226, 0, 26, 0.55);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 16px 38px -14px rgba(226, 0, 26, 0.6);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .btn-ghost { background: rgba(20, 8, 10, 0.92); }
+  }
 
   .prose-measure { max-width: 68ch; }
 
-  /* Static, softly clouded sky under the hero so frosted panels keep reading as material */
+  /* Static, softly lit backdrop so frosted panels keep reading as material without any canvas. */
   .sky-static {
     background-color: var(--surface-page);
     background-image:
       radial-gradient(60rem 22rem at 12% 8%, rgba(255, 255, 255, 0.9), transparent 70%),
       radial-gradient(48rem 18rem at 85% 22%, rgba(255, 255, 255, 0.85), transparent 70%),
-      radial-gradient(70rem 26rem at 50% 70%, rgba(198, 220, 243, 0.55), transparent 70%),
+      radial-gradient(70rem 26rem at 50% 70%, rgba(198, 220, 243, 0.45), transparent 70%),
       linear-gradient(180deg, #E9F2FC 0%, var(--surface-page) 40%, var(--surface-page) 100%);
+  }
+
+  /*
+   * Dark red-glow surface for everything below the hero (Kundenwunsch 2026-09-16):
+   * near-black ground, soft blurred red glows — no flat fill, so the liquid-glass
+   * cards inside it have something to read against. Reassigns the ink/line tokens
+   * locally so existing text-ink-* / border-sky-200 utilities flip to light-on-dark
+   * automatically, without touching every component.
+   */
+  .surface-dark {
+    --color-ink-900: #F7EEEF;
+    --color-ink-700: #D8C4C7;
+    --color-ink-500: #AC9295;
+    --color-sky-200: rgba(255, 255, 255, 0.14);
+    --color-accent-50: rgba(255, 255, 255, 0.08);
+    color: var(--color-ink-900);
+    background-color: #150708;
+    background-image:
+      radial-gradient(50rem 32rem at 12% -12%, rgba(226, 0, 26, 0.30), transparent 62%),
+      radial-gradient(42rem 28rem at 92% 18%, rgba(226, 0, 26, 0.22), transparent 60%),
+      radial-gradient(55rem 34rem at 50% 115%, rgba(226, 0, 26, 0.20), transparent 60%),
+      linear-gradient(180deg, #1B0A0C 0%, #150708 45%, #120607 100%);
+  }
+  .surface-dark :focus-visible { outline-color: #fff; }
+
+  /* Dark liquid glass — the service/trust/review cards inside .surface-dark. */
+  .glass-dark-frosted {
+    background: linear-gradient(165deg, var(--lqd-tint-hi), var(--lqd-tint-lo));
+    backdrop-filter: blur(var(--lqd-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--lqd-blur)) saturate(150%);
+    border: 1px solid var(--lqd-rim-hi);
+    box-shadow: inset 0 1px 0 var(--lqd-highlight), var(--lqd-shadow);
+    border-radius: var(--radius-panel);
+  }
+  .glass-dark-balanced {
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    border: 1px solid var(--lqd-rim-lo);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), var(--lqd-shadow);
+    border-radius: var(--radius-tile);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-dark-frosted { background: rgba(30, 12, 14, 0.92); }
+    .glass-dark-balanced { background: rgba(30, 12, 14, 0.88); }
+  }
+
+  /* Shared hover lift for the offer/service cards: scale + rise + red glow — one grammar
+     reused everywhere a card is interactive, so hover states stay consistent site-wide. */
+  .card-hover {
+    transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 260ms ease, border-color 260ms ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px) scale(1.015);
+    border-color: rgba(226, 0, 26, 0.5);
+    box-shadow: inset 0 1px 0 var(--lqd-highlight), 0 34px 60px -20px rgba(0, 0, 0, 0.55), 0 0 54px -12px rgba(226, 0, 26, 0.55);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover:hover { transform: none; }
+  }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border-radius: var(--radius-control); padding: 0.375rem 0.875rem;
+    font-size: 0.875rem; font-weight: 600;
+  }
+}
+
+@layer utilities {
+  /*
+   * Scroll reveal (src/scripts/scroll-reveal.ts adds [data-visible] on entry).
+   * One shared grammar, applied to every lower-page section — a wave, not scattered
+   * one-off effects. Skips entirely under reduced-motion (final state renders at once).
+   */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+  [data-reveal][data-visible] { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
   }
 }

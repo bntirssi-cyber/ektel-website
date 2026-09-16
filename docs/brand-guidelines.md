@@ -1,16 +1,17 @@
 # Brand Guidelines v1.0 — EKTEL Mobilfunk & Smartphones
 
-> Last updated: 2026-09-16
-> Status: Draft (Website-Launch). Farben/Schriften werden durch den impeccable Direction-Contract finalisiert; diese Datei ist **Input**, die Laufzeit-Tokens leben in `src/styles/global.css`.
+> Last updated: 2026-09-16 (Rot-Rebrand)
+> Status: Draft (Website-Launch). **Überholt:** Das ursprüngliche Hamburg-Blau war der impeccable-Direction-Contract-Vorschlag; der Kunde hat am 2026-09-16 explizit auf das reale Ladenschild-Rot umgeswitcht — site-weit, nicht nur das Logo. Diese Datei ist **Input**, die Laufzeit-Tokens leben in `src/styles/global.css`.
 
 ## Quick Reference
 
 | Element | Value |
 |---------|-------|
-| Primary Color | Hamburg-Blau #0E5FB5 |
-| Secondary Color | Deep Blue #0A4B90 |
-| Primary Font | Bricolage Grotesque (Display) / Figtree (Body) — Kandidat: Funnel Display |
+| Primary Color | Ladenschild-Rot #E2001A (`--color-accent-600`) |
+| Secondary Color | Dunkelrot #AA0013 (`--color-accent-700`, Hover) |
+| Primary Font | Funnel Display (Display) / Funnel Sans (Body) |
 | Voice | Nahbar, direkt, hanseatisch-nüchtern, hilfsbereit |
+| Untere Seitenhälfte | Dunkles Liquid Glass auf `.surface-dark` (nahezu Schwarz + roter Glow) statt hellem Himmel |
 
 ---
 
@@ -73,40 +74,47 @@
 
 | Name | Hex | RGB | Usage |
 |------|-----|-----|-------|
-| Hamburg-Blau | #0E5FB5 | rgb(14,95,181) | CTAs, Links, Akzentflächen in Illustrationen |
-| Deep Blue | #0A4B90 | rgb(10,75,144) | Hover, aktive Navigation |
+| Ladenschild-Rot | #E2001A | rgb(226,0,26) | CTAs, Links, Akzentflächen, Illustrationen, Icons |
+| Dunkelrot | #AA0013 | rgb(170,0,19) | Hover, aktive Navigation |
 
-### Neutral (Sky / Ink)
+### Neutral, hell (Header/Hero/`/leistungen`, `/kontakt`)
 
 | Name | Hex | RGB | Usage |
 |------|-----|-----|-------|
 | Sky 50 | #F3F8FD | rgb(243,248,253) | Seitenhintergrund |
 | Sky 100 | #E3EEFA | rgb(227,238,250) | Footer, Flächen |
-| Sky 200 | #C6DCF3 | rgb(198,220,243) | Borders, Illustrationswolken |
+| Sky 200 | #C6DCF3 | rgb(198,220,243) | Borders |
 | Ink 900 | #0F1B2D | rgb(15,27,45) | Überschriften, Fließtext |
 | Ink 700 | #2A3950 | rgb(42,57,80) | Sekundärtext |
 | Ink 500 | #55647A | rgb(85,100,122) | Hinweise, Captions |
+
+### Dunkel (`.surface-dark`, Startseite ab „Was wir für Sie tun")
+
+| Name | Hex/Value | Usage |
+|------|-----------|-------|
+| Grund | #150708 → #1B0A0C Verlauf | Seitenhintergrund unten |
+| Roter Glow | rgba(226,0,26,0.20–0.30) | Drei unscharfe Radial-Gradients, keine Blur-Filter nötig |
+| Ink 900 (dunkel) | #F7EEEF | Überschriften/Fließtext auf dunklem Grund (lokale Token-Überschreibung) |
+| Ink 700 (dunkel) | #D8C4C7 | Sekundärtext auf dunklem Grund |
+| Ink 500 (dunkel) | #AC9295 | Hinweise auf dunklem Grund |
 
 ### Semantic
 
 | State | Hex | Usage |
 |-------|-----|-------|
 | Geöffnet | #1B8A5A | Öffnungs-Badge |
-| Geschlossen / Fehler | #B4462B | Badge geschlossen, Formularfehler |
-
-### Optionaler CTA-Akzent (Entscheidung im Direction-Contract)
-- Signal-Orange #EA580C (aus ui-ux-pro-max „Professional blue + urgent orange") – nur wenn Blau-auf-Himmel für CTAs zu wenig absetzt. Wenn genutzt: ausschließlich für den primären CTA, nie für Text.
+| Geschlossen / Fehler | #946200 | Badge geschlossen, Formularfehler (bewusst Bernstein statt Rostrot, um Verwechslung mit dem neuen Marken-Rot zu vermeiden) |
 
 ### Accessibility
-- Ink 900 auf Sky 50: ≈ 15:1 (AAA). Weiß auf Hamburg-Blau: ≈ 6.4:1 (AA). Ink 700 auf Glas (≥ 62 % Weiß über Himmel): muss im Build gemessen werden (Ziel ≥ 4.5:1).
+- Ink 900 auf Sky 50: ≈ 15:1 (AAA). Weiß auf Ladenschild-Rot: ≈ 5.2:1 (AA). Ink 900 (dunkel, #F7EEEF) auf `.surface-dark`-Grund (#150708): > 14:1 (AAA).
 
 ---
 
 ## 4. Typography
 
 ```css
---font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif; /* Kandidat: "Funnel Display Variable" */
---font-body: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+--font-display: "Funnel Display Variable", ui-sans-serif, system-ui, sans-serif;
+--font-body: "Funnel Sans Variable", ui-sans-serif, system-ui, sans-serif;
 ```
 
 | Element | Desktop | Mobile | Weight | Line Height |
@@ -126,7 +134,7 @@
 
 - **Echte Wortmarke seit 2026-09-16** (Kunden-Foto der Ladenfront): „EKTEL" in Rot `#E2001A` (`--color-brand-red`), fett, serifenlos, Versalien, ohne Bildzeichen — siehe `docs/logo-brief.md` für Details und Vorbehalt zum exakten Farbwert.
 - Umgesetzt in `src/components/Logo.astro` (Wortmarke), `public/favicon.svg` (rotes Monogramm für Kleindarstellung), `scripts/make-og.mjs` (Social-Preview).
-- Der UI-Akzent (Buttons, Links) bleibt bewusst Hamburg-Blau — die Rotmarke ist auf das Logo selbst begrenzt, nicht auf die ganze Oberfläche ausgeweitet.
+- **Update 2026-09-16:** Der UI-Akzent ist nicht mehr auf das Logo begrenzt — der Kunde wollte das rote Ladenschild site-weit. CTAs, Links, Icons und Illustrations-Akzente laufen jetzt auf demselben Rot wie die Wortmarke (siehe Farbpalette oben).
 - Mindesthöhe 20 px, Schutzraum = Zeilenhöhe der Wortmarke.
 - Nicht: verzerren, Schatten, Verläufe, andere Rottöne als `--color-brand-red`.
 

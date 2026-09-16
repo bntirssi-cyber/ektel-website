@@ -20,7 +20,8 @@ export const shop = {
   zip: '22765',
   city: 'Hamburg',
   district: 'Altona',
-  locationHint: 'Bahnhof Hamburg-Altona · Ebene 1 · Ausgang Ottenser Hauptstraße',
+  locationHint: 'Bahnhof Hamburg-Altona · Ausgang Ottenser Hauptstraße',
+  floorHint: 'Ebene 1', // ⚠︎ BITTE PRÜFEN – bahnhof.de sagt „Ebene 1", Google-Maps-Eintrag sagt „Etage 0"; welche Angabe stimmt?
   phone: '+494039903730',
   phoneDisplay: '040 399 037 30',
   email: 'info@ektel-altona.de', // ⚠︎ BITTE PRÜFEN – E-Mail nicht öffentlich belegt
@@ -32,8 +33,16 @@ export const shop = {
     sun: { open: '10:00', close: '18:00' },
   } satisfies WeekHours,
   hoursShort: 'Mo–Sa 08:30–20:30 Uhr · So 10:00–18:00 Uhr',
-  hoursNote: 'Sonn- und Feiertage 10:00–18:00 Uhr', // ⚠︎ BITTE PRÜFEN (bahnhof.de; Verzeichnisse nennen 09–21 Uhr)
-  reviewCountLabel: 'über 800 Google-Bewertungen',
+  hoursNote: 'Sonn- und Feiertage 10:00–18:00 Uhr', // Mo–Sa 08:30–20:30 durch bahnhof.de UND den echten Google-Eintrag bestätigt (2026-09-16); nur die Sonntagszeit stammt bislang nur von bahnhof.de
+  // Live von Google Maps abgerufen (2026-09-16): „EKTEL Mobilfunk & Smartphones", 5,0 ★, 1.243 Rezensionen (1.232×5★, 2×4★, 4×3★, 4×1★).
+  reviewRating: 5.0,
+  reviewCount: 1243,
+  reviewCountLabel: '1.243 Google-Bewertungen',
+  reviewRatingLabel: '5,0 von 5 Sternen',
+  // Einziges wörtliches Zitat auf der Site (Copyright-Budget), gekürzt aus dem hervorgehobenen
+  // Ausschnitt, den Google selbst auf der Profilseite anzeigt – ohne zugeordneten Namen.
+  reviewQuote: 'Sehr guter Laden, ehrliche und kompetente Beratung, schneller und guter Service.',
+  reviewQuoteSource: 'Google-Rezension',
   brands: ['Samsung', 'Apple', 'Sony'],
   transit: [
     'S-Bahn S1, S3, S5 – Bahnhof Altona', // ⚠︎ BITTE PRÜFEN

@@ -1,17 +1,32 @@
 ---
+import { Image } from 'astro:assets';
 import type { Service } from '../data/shop';
-import ServiceIllustration from './ServiceIllustration.astro';
+import verkauf from '../assets/img/service-verkauf.jpg';
+import ankauf from '../assets/img/service-ankauf.jpg';
+import sim from '../assets/img/service-sim.jpg';
+
+const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
 
 interface Props { service: Service; size?: 'lg' | 'md' }
 const { service, size = 'md' } = Astro.props;
+const photo = photos[service.illustration as keyof typeof photos];
 ---
-<article class={`glass-balanced overflow-hidden ${size === 'lg' ? 'md:col-span-7 md:grid md:grid-cols-2' : 'md:col-span-5'}`}>
-  <div class={`flex items-center justify-center bg-white/40 text-ink-700 ${size === 'lg' ? 'p-8' : 'h-40 p-4'}`}>
-    <ServiceIllustration kind={service.illustration} class={size === 'lg' ? 'w-full max-w-xs' : 'h-full w-auto'} />
+<article data-reveal class={`card-hover group overflow-hidden ${size === 'lg' ? 'md:col-span-7 md:grid md:grid-cols-2' : 'md:col-span-5'} glass-dark-frosted`}>
+  <div class={`overflow-hidden ${size === 'lg' ? '' : 'h-48'}`}>
+    {photo && (
+      <Image
+        src={photo}
+        alt=""
+        widths={[420, 760]}
+        sizes={size === 'lg' ? '(min-width: 768px) 30vw, 100vw' : '(min-width: 768px) 22vw, 100vw'}
+        class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+        loading="lazy"
+      />
+    )}
   </div>
   <div class="p-6 md:p-8">
     <h3 class="text-2xl font-bold">{service.title}</h3>
     <p class="prose-measure mt-2 text-ink-700">{service.summary}</p>
-    <a href={`/leistungen#${service.slug}`} class="mt-4 inline-block font-semibold text-accent-700 underline-offset-4 hover:underline">Mehr zu {service.title}</a>
+    <a href={`/leistungen#${service.slug}`} class="mt-4 inline-flex items-center gap-1.5 font-semibold text-accent-600 underline-offset-4 group-hover:underline">Mehr zu {service.title}</a>
   </div>
 </article>

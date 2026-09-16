@@ -1,20 +1,37 @@
 ---
+/** Drei "Warum EKTEL"-Punkte, die die Google-Bewertungszahl (siehe ReviewsPanel) ergänzen statt sie zu wiederholen. */
 import { shop } from '../data/shop';
 
 const facts = [
-  [shop.reviewCountLabel, 'Bewertet von Kundinnen und Kunden aus Altona und ganz Hamburg.'],
-  ['Sieben Tage die Woche', `Mo–Sa ${shop.hours.mon.open}–${shop.hours.mon.close} Uhr, So ${shop.hours.sun.open}–${shop.hours.sun.close} Uhr.`],
-  ['Direkt im Bahnhof', shop.locationHint],
+  {
+    title: 'Sieben Tage die Woche',
+    text: `Mo–Sa ${shop.hours.mon.open}–${shop.hours.mon.close} Uhr, So ${shop.hours.sun.open}–${shop.hours.sun.close} Uhr – auch spontan.`,
+    icon: 'M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm.75 4a.75.75 0 0 0-1.5 0v4.19l2.72 2.72a.75.75 0 1 0 1.06-1.06l-2.28-2.28V6Z',
+  },
+  {
+    title: 'Direkt im Bahnhof',
+    text: shop.locationHint,
+    icon: 'M10 1.5c-3.6 0-6.5 2.9-6.5 6.5 0 4.9 6.5 10.5 6.5 10.5s6.5-5.6 6.5-10.5c0-3.6-2.9-6.5-6.5-6.5Zm0 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z',
+  },
+  {
+    title: 'Alle großen Marken',
+    text: `${shop.brands.join(', ')} und weitere – Verkauf, Reparatur und Zubehör aus einer Hand.`,
+    icon: 'M6 2A2.5 2.5 0 0 0 3.5 4.5v11A2.5 2.5 0 0 0 6 18h8a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 14 2H6Zm4 12.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z',
+  },
 ] as const;
 ---
 <section aria-labelledby="trust-title" class="mx-auto max-w-6xl px-4 py-16">
   <h2 id="trust-title" class="sr-only">Warum EKTEL</h2>
-  <dl class="grid gap-6 md:grid-cols-3">
-    {facts.map(([k, v]) => (
-      <div class="border-t border-sky-200 pt-4">
-        <dt class="font-display text-2xl font-bold">{k}</dt>
-        <dd class="mt-1 text-ink-700">{v}</dd>
+  <div data-reveal-group class="grid gap-5 md:grid-cols-3">
+    {facts.map((f) => (
+      <div data-reveal class="card-hover glass-dark-balanced p-6">
+        <svg viewBox="0 0 20 20" class="size-8 text-accent-600" fill="currentColor" aria-hidden="true"><path d={f.icon} /></svg>
+        <p class="mt-4 font-display text-xl font-bold">{f.title}</p>
+        <p class="mt-1 text-ink-700">{f.text}</p>
       </div>
     ))}
-  </dl>
+  </div>
 </section>
+<script>
+  import '../scripts/scroll-reveal';
+</script>
