@@ -1,0 +1,38 @@
+---
+import { shop } from '../data/shop';
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const fields = [
+  { id: 'name', label: 'Name', type: 'text', autocomplete: 'name', required: true },
+  { id: 'phone', label: 'Telefon', type: 'tel', autocomplete: 'tel', required: false },
+  { id: 'email', label: 'E-Mail', type: 'email', autocomplete: 'email', required: false },
+  { id: 'device', label: 'Gerät (z. B. Samsung Galaxy S23)', type: 'text', autocomplete: 'off', required: false },
+] as const;
+---
+<form data-contact-form data-endpoint={endpoint} data-mailto={shop.email} data-phone={shop.phoneDisplay} novalidate class="grid gap-5">
+  <p class="text-sm text-ink-500">Telefon oder E-Mail genügt – eines von beiden brauchen wir für die Rückmeldung.</p>
+  {fields.map((f) => (
+    <div class="grid gap-1.5">
+      <label for={f.id} class="font-semibold">{f.label}{f.required && <span aria-hidden="true"> *</span>}</label>
+      <input id={f.id} name={f.id} type={f.type} autocomplete={f.autocomplete} required={f.required} aria-describedby={`${f.id}-error`} class="min-h-12 rounded-xl border border-sky-200 bg-white/80 px-4" />
+      <p id={`${f.id}-error`} data-error-for={f.id} class="hidden text-sm font-semibold text-closed-600" aria-live="polite"></p>
+    </div>
+  ))}
+  <div class="grid gap-1.5">
+    <label for="message" class="font-semibold">Was ist passiert? <span aria-hidden="true">*</span></label>
+    <textarea id="message" name="message" rows="5" required aria-describedby="message-error" class="rounded-xl border border-sky-200 bg-white/80 px-4 py-3"></textarea>
+    <p id="message-error" data-error-for="message" class="hidden text-sm font-semibold text-closed-600" aria-live="polite"></p>
+  </div>
+  <p class="sr-only" aria-hidden="true">
+    <label for="website">Website (bitte leer lassen)</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </p>
+  <p class="text-sm text-ink-500">
+    Mit dem Absenden stimmen Sie zu, dass wir Ihre Angaben zur Beantwortung der Anfrage verarbeiten.
+    <a href="/datenschutz#kontaktformular" class="underline">Datenschutzhinweise</a>
+  </p>
+  <button type="submit" class="btn-primary justify-self-start">Anfrage senden</button>
+  <p data-status role="status" class="hidden font-semibold"></p>
+</form>
+<script>
+  import '../scripts/contact-form';
+</script>
