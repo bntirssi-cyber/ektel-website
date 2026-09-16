@@ -2,50 +2,43 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GlassPanel from '../components/GlassPanel.astro';
 import ServiceIllustration from '../components/ServiceIllustration.astro';
-import DarkGradient from '../components/DarkGradient.astro';
 import { shop } from '../data/shop';
 ---
-<BaseLayout title="Leistungen – Reparatur, Verkauf, Ankauf, SIM | EKTEL Altona" description="Smartphone-Reparatur (Display, Akku, Ladebuchse), Verkauf, Ankauf und SIM-Karten bei EKTEL im Bahnhof Hamburg-Altona.">
-  <div class="surface-dark relative isolate overflow-hidden">
-    <DarkGradient />
-
-    <div class="relative z-10">
-      <section class="mx-auto max-w-6xl px-4 pb-8 pt-16">
-        <h1 class="text-4xl font-bold md:text-5xl">Leistungen</h1>
-        <p class="prose-measure mt-4 text-lg text-ink-700">Alles rund ums Smartphone an einem Ort – ohne Termin, sieben Tage die Woche.</p>
-        <nav aria-label="Leistungen" class="mt-6 flex flex-wrap gap-2">
-          {shop.services.map((s) => (
-            <a href={`#${s.slug}`} class="chip-dark-glass min-h-11">{s.title}</a>
-          ))}
-        </nav>
-      </section>
-
-      {shop.services.map((s, i) => (
-        <section id={s.slug} aria-labelledby={`${s.slug}-title`} class="mx-auto max-w-6xl scroll-mt-28 px-4 py-6 md:py-8">
-          <GlassPanel as="div" variant="frosted" theme="dark" class={`grid items-stretch overflow-hidden md:grid-cols-2 ${i % 2 ? 'md:[&>figure]:order-2' : ''}`}>
-            <figure class="flex items-center justify-center bg-white/5 p-10 text-ink-700">
-              <ServiceIllustration kind={s.illustration} class="w-full max-w-sm" />
-            </figure>
-            <div class="p-8 md:p-12">
-              <h2 id={`${s.slug}-title`} class="text-3xl font-bold">{s.title}</h2>
-              <p class="prose-measure mt-3 text-ink-700">{s.summary}</p>
-              <ul class="mt-5 space-y-2">
-                {s.bullets.map((b) => (
-                  <li class="flex gap-3">
-                    <span aria-hidden="true" class="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent-600"></span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <a href={`tel:${shop.phone}`} class="btn-primary mt-8">Jetzt anrufen</a>
-            </div>
-          </GlassPanel>
-        </section>
+<BaseLayout theme="dark" title="Leistungen – Reparatur, Verkauf, Ankauf, SIM | EKTEL Altona" description="Smartphone-Reparatur (Display, Akku, Ladebuchse), Verkauf, Ankauf und SIM-Karten bei EKTEL im Bahnhof Hamburg-Altona.">
+  <section class="mx-auto max-w-6xl px-4 pb-8 pt-16">
+    <h1 class="text-4xl font-bold md:text-5xl">Leistungen</h1>
+    <p class="prose-measure mt-4 text-lg text-ink-700">Alles rund ums Smartphone an einem Ort – ohne Termin, sieben Tage die Woche.</p>
+    <nav aria-label="Leistungen" class="mt-6 flex flex-wrap gap-2">
+      {shop.services.map((s) => (
+        <a href={`#${s.slug}`} class="chip-dark-glass min-h-11">{s.title}</a>
       ))}
+    </nav>
+  </section>
 
-      <section class="mx-auto max-w-6xl px-4 py-12">
-        <p class="prose-measure text-ink-700">Preise nennen wir Ihnen nach einer kurzen Diagnose vor Ort oder am Telefon – ehrlich und ohne Überraschungen.</p>
-      </section>
-    </div>
-  </div>
+  {shop.services.map((s, i) => (
+    <section id={s.slug} aria-labelledby={`${s.slug}-title`} class="mx-auto max-w-6xl scroll-mt-28 px-4 py-6 md:py-8">
+      <GlassPanel as="div" variant="frosted" theme="dark" class={`grid items-stretch overflow-hidden md:grid-cols-2 ${i % 2 ? 'md:[&>figure]:order-2' : ''}`}>
+        <figure class="flex items-center justify-center bg-white/5 p-10 text-ink-700">
+          <ServiceIllustration kind={s.illustration} class="w-full max-w-sm" />
+        </figure>
+        <div class="p-8 md:p-12">
+          <h2 id={`${s.slug}-title`} class="text-3xl font-bold">{s.title}</h2>
+          <p class="prose-measure mt-3 text-ink-700">{s.summary}</p>
+          <ul class="mt-5 space-y-2">
+            {s.bullets.map((b) => (
+              <li class="flex gap-3">
+                <span aria-hidden="true" class="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent-600"></span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={`tel:${shop.phone}`} class="btn-primary mt-8">Jetzt anrufen</a>
+        </div>
+      </GlassPanel>
+    </section>
+  ))}
+
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <p class="prose-measure text-ink-700">Preise nennen wir Ihnen nach einer kurzen Diagnose vor Ort oder am Telefon – ehrlich und ohne Überraschungen.</p>
+  </section>
 </BaseLayout>

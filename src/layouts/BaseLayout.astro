@@ -3,9 +3,10 @@ import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DarkGradient from '../components/DarkGradient.astro';
 
-interface Props { title: string; description: string; ogImage?: string; bodyClass?: string }
-const { title, description, ogImage, bodyClass = '' } = Astro.props;
+interface Props { title: string; description: string; ogImage?: string; bodyClass?: string; theme?: 'light' | 'dark' }
+const { title, description, ogImage, bodyClass = '', theme = 'light' } = Astro.props;
 ---
 <!doctype html>
 <html lang="de">
@@ -14,13 +15,25 @@ const { title, description, ogImage, bodyClass = '' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#F3F8FD" />
+    <meta name="theme-color" content={theme === 'dark' ? '#150708' : '#F3F8FD'} />
     <Seo title={title} description={description} ogImage={ogImage} />
   </head>
-  <body class={`flex min-h-dvh flex-col ${bodyClass}`}>
+  <body class={`flex min-h-dvh flex-col ${theme === 'dark' ? 'bg-[#150708]' : ''} ${bodyClass}`}>
     <a href="#inhalt" class="btn-primary sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50">Zum Inhalt springen</a>
-    <Header />
-    <main id="inhalt" class="flex-1"><slot /></main>
+    {theme === 'dark' ? (
+      <div class="surface-dark relative isolate flex min-h-dvh flex-1 flex-col overflow-hidden">
+        <DarkGradient />
+        <div class="relative z-10 flex flex-1 flex-col">
+          <Header theme="dark" />
+          <main id="inhalt" class="flex-1"><slot /></main>
+        </div>
+      </div>
+    ) : (
+      <>
+        <Header />
+        <main id="inhalt" class="flex-1"><slot /></main>
+      </>
+    )}
     <Footer />
   </body>
 </html>

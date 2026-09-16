@@ -2,6 +2,10 @@
 import Logo from './Logo.astro';
 import { shop } from '../data/shop';
 
+interface Props { theme?: 'light' | 'dark' }
+const { theme = 'light' } = Astro.props;
+const dark = theme === 'dark';
+
 const items = [
   ['/', 'Start'],
   ['/leistungen', 'Leistungen'],
@@ -10,7 +14,7 @@ const items = [
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <header data-header class="sticky top-0 z-40 px-4 pt-3">
-  <div class="glass-frosted mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 md:px-5">
+  <div class={`${dark ? 'glass-dark-frosted' : 'glass-frosted'} mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2 md:px-5`}>
     <a href="/" class="flex items-center text-ink-900" aria-label="EKTEL – zur Startseite"><Logo /></a>
 
     <nav aria-label="Hauptnavigation" class="hidden items-center gap-7 md:flex">
@@ -18,7 +22,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
         <a
           href={href}
           aria-current={path === href ? 'page' : undefined}
-          class="py-2 font-semibold text-ink-700 hover:text-accent-700 aria-[current=page]:text-accent-700 aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
+          class={`py-2 font-semibold ${dark ? 'text-white/80 hover:text-white aria-[current=page]:text-white' : 'text-ink-700 hover:text-accent-700 aria-[current=page]:text-accent-700'} aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8`}
         >{label}</a>
       ))}
       <a href={`tel:${shop.phone}`} class="btn-primary">Jetzt anrufen</a>
@@ -28,9 +32,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       <a href={`tel:${shop.phone}`} class="btn-primary px-4" aria-label="Jetzt anrufen">Anrufen</a>
       <details data-menu class="relative">
         <summary class="btn-ghost cursor-pointer list-none px-4 [&::-webkit-details-marker]:hidden">Menü</summary>
-      <div class="glass-frosted absolute right-0 mt-2 flex w-60 flex-col gap-1 p-2">
+      <div class={`${dark ? 'glass-dark-frosted' : 'glass-frosted'} absolute right-0 mt-2 flex w-60 flex-col gap-1 p-2`}>
         {items.map(([href, label]) => (
-          <a href={href} aria-current={path === href ? 'page' : undefined} class="rounded-xl px-3 py-3 font-semibold text-ink-900 hover:bg-sky-100 aria-[current=page]:text-accent-700">{label}</a>
+          <a href={href} aria-current={path === href ? 'page' : undefined} class={`rounded-xl px-3 py-3 font-semibold ${dark ? 'text-white hover:bg-white/10 aria-[current=page]:text-white' : 'text-ink-900 hover:bg-sky-100 aria-[current=page]:text-accent-700'}`}>{label}</a>
         ))}
         <a href={`tel:${shop.phone}`} class="btn-primary mt-1">Jetzt anrufen</a>
       </div>
