@@ -1,0 +1,27 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import GlassPanel from '../components/GlassPanel.astro';
+
+interface Props { title: string; description: string; heading: string }
+const { title, description, heading } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <div class="sky-static">
+    <section class="mx-auto max-w-3xl px-4 py-16">
+      <h1 class="text-4xl font-bold md:text-5xl">{heading}</h1>
+      <GlassPanel as="article" variant="frosted" class="legal prose-measure mt-8 p-8 md:p-12">
+        <slot />
+      </GlassPanel>
+    </section>
+  </div>
+</BaseLayout>
+<style is:global>
+  .legal h2 { font-size: 1.5rem; margin-top: 2.25rem; }
+  .legal h2:first-child { margin-top: 0; }
+  .legal h3 { font-size: 1.125rem; margin-top: 1.5rem; }
+  .legal p, .legal ul { margin-top: 0.75rem; color: var(--text-secondary); }
+  .legal ul { padding-left: 1.25rem; list-style: disc; }
+  .legal a { color: var(--accent-strong); text-decoration: underline; }
+  .legal strong { color: var(--text-primary); }
+  .legal .todo { background: rgba(180, 70, 43, 0.08); border: 1px solid rgba(180, 70, 43, 0.35); border-radius: 0.5rem; padding: 0.125rem 0.5rem; color: var(--color-closed-600); font-weight: 600; }
+</style>

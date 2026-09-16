@@ -1,0 +1,26 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { shop } from '../data/shop';
+---
+<LegalLayout title="Impressum – EKTEL Mobilfunk & Smartphones" description="Impressum und Anbieterkennzeichnung von EKTEL Mobilfunk & Smartphones, Hamburg-Altona." heading="Impressum">
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p><strong>{shop.name}</strong><br />Inhaberin: {shop.owner}<br />{shop.street}<br />{shop.zip} {shop.city}</p>
+
+  <h2>Kontakt</h2>
+  <p>Telefon: <a href={`tel:${shop.phone}`}>{shop.phoneDisplay}</a><br />E-Mail: <a href={`mailto:${shop.email}`}>{shop.email}</a> <span class="todo">⚠︎ BITTE PRÜFEN</span></p>
+
+  <h2>Umsatzsteuer-ID</h2>
+  <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: <span class="todo">⚠︎ BITTE PRÜFEN – eintragen oder Abschnitt entfernen</span></p>
+
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>{shop.owner}, Anschrift wie oben.</p>
+
+  <h2>Streitschlichtung</h2>
+  <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+  <h2>Haftung für Inhalte und Links</h2>
+  <p>Die Inhalte dieser Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Für die Inhalte verlinkter externer Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
+
+  <h2>Hinweis zu Marken</h2>
+  <p>Samsung, Apple und Sony sowie weitere genannte Marken sind eingetragene Marken der jeweiligen Inhaber. {shop.shortName} ist ein unabhängiges Fachgeschäft und steht in keiner vertraglichen Verbindung zu diesen Herstellern, sofern nicht ausdrücklich angegeben.</p>
+</LegalLayout>
