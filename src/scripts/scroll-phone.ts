@@ -19,7 +19,7 @@ if (section && !reduce.matches) {
     let raf = 0;
     let running = false;
 
-    const src = (i: number) => `/phone/${set}/f${String(i + 1).padStart(4, '0')}.webp`;
+    const src = (i: number) => `${import.meta.env.BASE_URL}phone/${set}/f${String(i + 1).padStart(4, '0')}.webp`;
 
     function sizeCanvas() {
       const rect = canvas!.getBoundingClientRect();

@@ -1,6 +1,7 @@
 ---
 import { shop } from '../data/shop';
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const base = import.meta.env.BASE_URL;
 const fields = [
   { id: 'name', label: 'Name', type: 'text', autocomplete: 'name', required: true },
   { id: 'phone', label: 'Telefon', type: 'tel', autocomplete: 'tel', required: false },
@@ -28,7 +29,7 @@ const fields = [
   </p>
   <p class="text-sm text-ink-500">
     Mit dem Absenden stimmen Sie zu, dass wir Ihre Angaben zur Beantwortung der Anfrage verarbeiten.
-    <a href="/datenschutz#kontaktformular" class="underline">Datenschutzhinweise</a>
+    <a href={`${base}datenschutz#kontaktformular`} class="underline">Datenschutzhinweise</a>
   </p>
   <button type="submit" data-submit class="btn-primary justify-self-start disabled:cursor-wait disabled:opacity-70">Anfrage senden</button>
   <p data-status role="status" class="hidden font-semibold"></p>

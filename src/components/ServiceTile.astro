@@ -10,6 +10,7 @@ const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
 interface Props { service: Service; size?: 'lg' | 'md' }
 const { service, size = 'md' } = Astro.props;
 const photo = photos[service.illustration as keyof typeof photos];
+const base = import.meta.env.BASE_URL;
 ---
 <article data-reveal class={`card-hover group overflow-hidden ${size === 'lg' ? 'md:col-span-7 md:grid md:grid-cols-2' : 'md:col-span-5'} glass-dark-frosted`}>
   <div class={`overflow-hidden ${size === 'lg' ? '' : 'h-48'}`}>
@@ -27,6 +28,6 @@ const photo = photos[service.illustration as keyof typeof photos];
   <div class="p-6 md:p-8">
     <h3 class="text-2xl font-bold">{service.title}</h3>
     <p class="prose-measure mt-2 text-ink-700">{service.summary}</p>
-    <a href={`/leistungen#${service.slug}`} class="mt-4 inline-flex items-center gap-1.5 font-semibold text-accent-600 underline-offset-4 group-hover:underline">Mehr zu {service.title}</a>
+    <a href={`${base}leistungen#${service.slug}`} class="mt-4 inline-flex items-center gap-1.5 font-semibold text-accent-600 underline-offset-4 group-hover:underline">Mehr zu {service.title}</a>
   </div>
 </article>

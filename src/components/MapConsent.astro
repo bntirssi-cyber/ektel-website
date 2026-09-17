@@ -1,10 +1,11 @@
 ---
 import { shop } from '../data/shop';
+const base = import.meta.env.BASE_URL;
 ---
 <div data-map-consent data-src={shop.mapsEmbedUrl} class="glass-dark-frosted flex aspect-[4/3] flex-col items-center justify-center gap-4 p-6 text-center md:aspect-auto md:h-full md:min-h-[26rem]">
   <p class="prose-measure text-ink-700">
     Die Karte wird von Google Maps geladen. Dabei werden Daten an Google übertragen.
-    <a href="/datenschutz#google-maps" class="underline">Mehr erfahren</a>
+    <a href={`${base}datenschutz#google-maps`} class="underline">Mehr erfahren</a>
   </p>
   <button type="button" data-map-load class="btn-primary">Karte laden</button>
   <a href={shop.mapsUrl} target="_blank" rel="noopener" class="text-sm underline">Oder direkt in Google Maps öffnen</a>
