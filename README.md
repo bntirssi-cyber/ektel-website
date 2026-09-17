@@ -48,3 +48,13 @@ Weitere Scripts: `npm run og` (OG-Bild neu rendern), `npm run frames` (Frames au
 ## Deployment
 
 `npm run build` erzeugt `dist/` – auf jeden statischen Host hochladen (Netlify, Vercel, IONOS, Strato …). Keine Server-Logik nötig. Hinweis: `ektel.de` steht laut domainname.de zum Verkauf.
+
+**Demo-Deploy (GitHub Pages, kostenlos, dauerhaft):** [https://bntirssi-cyber.github.io/ektel-website/](https://bntirssi-cyber.github.io/ektel-website/) – Quellcode auf `main` im Repo, gebauter Stand auf dem `gh-pages`-Branch. Pages läuft von einem Unterpfad (`/ektel-website/`), deshalb setzt `astro.config.mjs` optional `base` über die Env-Var `BASE_PATH` (Default `/`, betrifft normale Builds nicht). Neu deployen:
+
+```bash
+rm -rf dist
+SITE_URL="https://bntirssi-cyber.github.io/ektel-website" BASE_PATH="/ektel-website/" npm run build
+npx gh-pages -d dist
+```
+
+Sobald eine echte Domain feststeht: `SITE_URL` setzen, `BASE_PATH` weglassen (Default `/`), normal bauen und auf den finalen Host hochladen.
