@@ -1,8 +1,16 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GlassPanel from '../components/GlassPanel.astro';
-import ServiceIllustration from '../components/ServiceIllustration.astro';
 import { shop } from '../data/shop';
+import workbench from '../assets/img/repair-workbench.jpg';
+import display from '../assets/img/repair-display.jpg';
+import microscope from '../assets/img/repair-microscope.jpg';
+import verkauf from '../assets/img/service-verkauf.jpg';
+import ankauf from '../assets/img/service-ankauf.jpg';
+import sim from '../assets/img/service-sim.jpg';
+
+const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
 ---
 <BaseLayout theme="dark" title="Leistungen – Reparatur, Verkauf, Ankauf, SIM | EKTEL Altona" description="Smartphone-Reparatur (Display, Akku, Ladebuchse), Verkauf, Ankauf und SIM-Karten bei EKTEL im Bahnhof Hamburg-Altona.">
   <section class="mx-auto max-w-6xl px-4 pb-8 pt-16">
@@ -18,8 +26,44 @@ import { shop } from '../data/shop';
   {shop.services.map((s, i) => (
     <section id={s.slug} aria-labelledby={`${s.slug}-title`} class="mx-auto max-w-6xl scroll-mt-28 px-4 py-6 md:py-8">
       <GlassPanel as="div" variant="frosted" theme="dark" class={`grid items-stretch overflow-hidden md:grid-cols-2 ${i % 2 ? 'md:[&>figure]:order-2' : ''}`}>
-        <figure class="flex items-center justify-center bg-white/5 p-10 text-ink-700">
-          <ServiceIllustration kind={s.illustration} class="w-full max-w-sm" />
+        <figure class="overflow-hidden">
+          {s.illustration === 'repair' ? (
+            <div class="grid h-56 grid-cols-2 grid-rows-2 gap-1 p-1 md:h-full">
+              <Image
+                src={workbench}
+                alt="Techniker öffnet ein Smartphone mit einem Präzisionsschraubendreher auf einer ESD-Unterlage"
+                widths={[360, 640]}
+                sizes="(min-width: 768px) 30vw, 100vw"
+                class="col-span-2 h-full w-full rounded-xl object-cover"
+                loading="lazy"
+              />
+              <Image
+                src={display}
+                alt="Neues Display-Glas wird für den Einbau auf ein Smartphone aufgelegt"
+                widths={[240, 420]}
+                sizes="(min-width: 768px) 15vw, 50vw"
+                class="h-full w-full rounded-xl object-cover"
+                loading="lazy"
+              />
+              <Image
+                src={microscope}
+                alt="Platine eines Smartphones unter dem Mikroskop bei der Fehlersuche"
+                widths={[240, 420]}
+                sizes="(min-width: 768px) 15vw, 50vw"
+                class="h-full w-full rounded-xl object-cover"
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <Image
+              src={photos[s.illustration as keyof typeof photos]}
+              alt=""
+              widths={[420, 760]}
+              sizes="(min-width: 768px) 30vw, 100vw"
+              class="h-56 w-full object-cover md:h-full"
+              loading="lazy"
+            />
+          )}
         </figure>
         <div class="p-8 md:p-12">
           <h2 id={`${s.slug}-title`} class="text-3xl font-bold">{s.title}</h2>

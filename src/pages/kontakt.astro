@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GlassPanel from '../components/GlassPanel.astro';
 import HoursTable from '../components/HoursTable.astro';
@@ -6,6 +7,7 @@ import MapConsent from '../components/MapConsent.astro';
 import ContactForm from '../components/ContactForm.astro';
 import OpenBadge from '../components/OpenBadge.astro';
 import { shop } from '../data/shop';
+import display from '../assets/img/repair-display.jpg';
 ---
 <BaseLayout theme="dark" title="Kontakt & Öffnungszeiten – EKTEL im Bahnhof Altona" description={`EKTEL Mobilfunk & Smartphones, ${shop.street}, ${shop.zip} ${shop.city}. Telefon ${shop.phoneDisplay}. ${shop.hoursShort}.`}>
   <section class="mx-auto max-w-6xl px-4 pt-16">
@@ -31,10 +33,22 @@ import { shop } from '../data/shop';
   </section>
 
   <section id="anfrage" class="mx-auto max-w-6xl px-4 py-10">
-    <GlassPanel as="div" variant="frosted" theme="dark" class="p-8 md:p-12">
-      <h2 class="text-3xl font-bold">Reparatur anfragen</h2>
-      <p class="prose-measure mt-3 text-ink-700">Beschreiben Sie kurz Gerät und Problem – wir melden uns mit einer Einschätzung. Schneller geht es telefonisch.</p>
-      <div class="mt-8 max-w-2xl"><ContactForm /></div>
+    <GlassPanel as="div" variant="frosted" theme="dark" class="grid items-stretch overflow-hidden md:grid-cols-2">
+      <figure class="overflow-hidden md:order-2">
+        <Image
+          src={display}
+          alt="Neues Display-Glas wird für den Einbau auf ein Smartphone aufgelegt"
+          widths={[420, 760]}
+          sizes="(min-width: 768px) 30vw, 100vw"
+          class="h-56 w-full object-cover md:h-full"
+          loading="lazy"
+        />
+      </figure>
+      <div class="p-8 md:order-1 md:p-12">
+        <h2 class="text-3xl font-bold">Reparatur anfragen</h2>
+        <p class="prose-measure mt-3 text-ink-700">Beschreiben Sie kurz Gerät und Problem – wir melden uns mit einer Einschätzung. Schneller geht es telefonisch.</p>
+        <div class="mt-8 max-w-2xl"><ContactForm /></div>
+      </div>
     </GlassPanel>
   </section>
 </BaseLayout>
