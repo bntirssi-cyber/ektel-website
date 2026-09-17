@@ -25,7 +25,7 @@ const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
 
   {shop.services.map((s, i) => (
     <section id={s.slug} aria-labelledby={`${s.slug}-title`} class="mx-auto max-w-6xl scroll-mt-28 px-4 py-6 md:py-8">
-      <GlassPanel as="div" variant="frosted" theme="dark" class={`grid items-stretch overflow-hidden md:grid-cols-2 ${i % 2 ? 'md:[&>figure]:order-2' : ''}`}>
+      <GlassPanel as="div" variant="frosted" theme="dark" class={`card-hover group grid items-stretch overflow-hidden md:grid-cols-2 ${i % 2 ? 'md:[&>figure]:order-2' : ''}`}>
         <figure class="overflow-hidden">
           {s.illustration === 'repair' ? (
             <div class="grid h-56 grid-cols-2 grid-rows-2 gap-1 p-1 md:h-full">
@@ -34,7 +34,7 @@ const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
                 alt="Techniker öffnet ein Smartphone mit einem Präzisionsschraubendreher auf einer ESD-Unterlage"
                 widths={[360, 640]}
                 sizes="(min-width: 768px) 30vw, 100vw"
-                class="col-span-2 h-full w-full rounded-xl object-cover"
+                class="col-span-2 h-full w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 loading="lazy"
               />
               <Image
@@ -42,7 +42,7 @@ const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
                 alt="Neues Display-Glas wird für den Einbau auf ein Smartphone aufgelegt"
                 widths={[240, 420]}
                 sizes="(min-width: 768px) 15vw, 50vw"
-                class="h-full w-full rounded-xl object-cover"
+                class="h-full w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 loading="lazy"
               />
               <Image
@@ -50,7 +50,7 @@ const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
                 alt="Platine eines Smartphones unter dem Mikroskop bei der Fehlersuche"
                 widths={[240, 420]}
                 sizes="(min-width: 768px) 15vw, 50vw"
-                class="h-full w-full rounded-xl object-cover"
+                class="h-full w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 loading="lazy"
               />
             </div>
@@ -60,7 +60,7 @@ const photos = { accessories: verkauf, 'trade-in': ankauf, sim } as const;
               alt=""
               widths={[420, 760]}
               sizes="(min-width: 768px) 30vw, 100vw"
-              class="h-56 w-full object-cover md:h-full"
+              class="h-56 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 md:h-full"
               loading="lazy"
             />
           )}

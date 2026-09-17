@@ -33,14 +33,14 @@ import display from '../assets/img/repair-display.jpg';
   </section>
 
   <section id="anfrage" class="mx-auto max-w-6xl px-4 py-10">
-    <GlassPanel as="div" variant="frosted" theme="dark" class="grid items-stretch overflow-hidden md:grid-cols-2">
+    <GlassPanel as="div" variant="frosted" theme="dark" class="card-hover group grid items-stretch overflow-hidden md:grid-cols-2">
       <figure class="overflow-hidden md:order-2">
         <Image
           src={display}
           alt="Neues Display-Glas wird für den Einbau auf ein Smartphone aufgelegt"
           widths={[420, 760]}
           sizes="(min-width: 768px) 30vw, 100vw"
-          class="h-56 w-full object-cover md:h-full"
+          class="h-56 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 md:h-full"
           loading="lazy"
         />
       </figure>
